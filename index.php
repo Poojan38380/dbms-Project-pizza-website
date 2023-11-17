@@ -163,7 +163,7 @@ if(isset($_POST['order'])){
       <nav class="navbar">
          <a href="#home">home</a>
          <a href="#about">about</a>
-         <a href="#menu">menu</a>
+         <a href="menu.html" class="menu-link">Menu</a>
          <a href="#order">order</a>
          <a href="#faq">faq</a>
       </nav>
@@ -403,7 +403,7 @@ if(isset($_POST['order'])){
 <!-- about section ends -->
 
 <!-- menu section starts  -->
-
+<!--
 <section id="menu" class="menu">
 
    <h1 class="heading">our menu</h1>
@@ -439,7 +439,7 @@ if(isset($_POST['order'])){
    </div>
 
 </section>
-
+-->
 <!-- menu section ends -->
 
 <!-- order section starts  -->

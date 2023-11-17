@@ -36,12 +36,11 @@ html{
    font-size: 62.5%;
    overflow-x: hidden;
    scroll-behavior: smooth;
-   scroll-padding-top: 7.5rem;
+   scroll-padding-top: 7rem;
 }
 
 body{
    background: var(--light-bg);
-   overflow-x: hidden;
 }
 
 section{
@@ -76,8 +75,49 @@ section{
    background-color:var(--black);
 }
 
+.message{
+   position: sticky;
+   top:0;
+   max-width: 1200px;
+   margin:0 auto;
+   background-color: var(--light-bg);
+   padding:2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap:1.5rem;
+   z-index: 10000;
+}
+
+.message span{
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.message i{
+   font-size: 2.5rem;
+   cursor: pointer;
+   color:var(--red);
+}
+
+.message i:hover{
+   color:var(--black);
+}
+
+.empty{
+   padding:1.5rem;
+   background: var(--white);
+   color:var(--red);
+   border-radius: .5rem;
+   border:var(--border);
+   font-size: 2rem;
+   text-align: center;
+   box-shadow: var(--box-shadow);
+   text-transform: capitalize;
+}
+
 .header{
-   position: fixed;
+   position:sticky;
    top:0; left:0; right:0;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
@@ -94,6 +134,10 @@ section{
 .header .flex .logo{
    font-size: 2.5rem;
    color:var(--black);
+}
+
+.header .flex .logo span{
+   color: var(--red);
 }
 
 .header .flex .navbar a{
@@ -173,7 +217,7 @@ section{
 }
 
 .user-account .display-orders{
-   padding:3rem 2rem;
+   padding:2rem;
    text-align: center;
    background-color: var(--light-bg);
    border-radius: .5rem;
@@ -372,17 +416,30 @@ section{
 }
 
 .shopping-cart .box .content form .fa-edit{
-   width: 5.5rem;
+   height: 4.5rem;
+   width: 4.5rem;
+   line-height: 4.3rem;
    font-size: 1.7rem;
-   cursor: pointer;
    border-radius: .5rem;
    background-color: var(--light-bg);
    color:var(--black);
+   cursor: pointer;
 }
 
 .shopping-cart .box .content form .fa-edit:hover{
    background-color: var(--black);
    color:var(--white);
+}
+
+.shopping-cart .cart-total{
+   text-align: center;
+   margin: 2rem 0;
+   font-size: 2.5rem;
+   color:var(--black);
+}
+
+.shopping-cart .cart-total span{
+   color:var(--red);
 }
 
 @keyframes fadeLeft{
@@ -401,10 +458,8 @@ section{
    background:url(../images/home-bg.jpg) no-repeat;
    background-size: cover;
    background-position: center;
-}
-
-.home-bg .home .slide-container{
-   margin-top: 12rem;
+   padding-top: 4rem;
+   overflow-x: hidden;
 }
 
 .home-bg .home .slide-container .slide{
@@ -583,6 +638,20 @@ section{
    color:var(--red);
 }
 
+.order form .grand-total{
+   text-align: center;
+   margin: 2rem 0;
+   font-size: 2.5rem;
+   color:var(--black);
+   padding:1rem;
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+}
+
+.order form .grand-total span{
+   color:var(--red);
+}
+
 .order form .flex{
    display: flex;
    flex-wrap: wrap;
@@ -722,7 +791,14 @@ section{
 
 
 
-/* media queries  */
+
+
+
+
+
+
+
+
 
 @media (max-width:991px){
 
@@ -757,7 +833,7 @@ section{
    }
 
    .home-bg .home .slide-container .slide .content h3{
-     font-size: 4rem;
+      font-size: 4rem;
    }
 
    .order form .flex .inputBox{
@@ -770,6 +846,10 @@ section{
 
    html{
       font-size: 50%;
+   }
+
+   .heading{
+      font-size: 3rem;
    }
 
    .my-orders{
@@ -789,5 +869,5 @@ section{
    .menu .box-container{
       grid-template-columns: 1fr;
    }
-   
+
 }

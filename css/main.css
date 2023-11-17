@@ -20,6 +20,10 @@
   text-decoration: none;
   transition: 0.2s linear;
 }
+*::selection {
+  color: var(--black);
+  background: var(--red);
+}
 
 ::-webkit-scrollbar {
   width: 1rem;
@@ -44,16 +48,15 @@ html {
 body {
   background: var(--light-bg);
 }
-
-section {
-  padding: 2rem;
+body section {
+  padding: 0.5rem;
   margin: 0 auto;
   max-width: 1200px;
 }
 
 .heading {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 4rem;
   color: var(--black);
   text-transform: uppercase;
@@ -133,15 +136,6 @@ section {
   align-items: center;
   justify-content: space-between;
   position: relative;
-}
-
-.header .flex .logo {
-  font-size: 2.5rem;
-  color: var(--black);
-}
-
-.header .flex .logo span {
-  color: var(--red);
 }
 
 .header .flex .navbar a {
@@ -569,7 +563,6 @@ section {
   background-color: var(--white);
   border-radius: 0.5rem;
   padding: 2rem;
-  text-align: center;
   box-shadow: var(--box-shadow);
   position: relative;
 }
@@ -595,14 +588,58 @@ section {
 }
 
 .menu .box-container .box .name {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
   color: var(--black);
   margin: 0.5rem 0;
 }
 
-.menu .box-container .box form {
+.menu .box-container .box form .button {
   display: flex;
   gap: 1rem;
+}
+.menu .box-container .box form .select-size {
+  height: 115px;
+  width: 160px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.menu .box-container .box form .select-size option {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.menu .box-container .box form .select-size option:checked {
+  font-size: 2rem;
+  background-color: #e74c3c;
+  color: var(--white);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 2px solid var(--black);
+}
+.menu .box-container .box form .crust-toppings {
+  border-radius: 0.5rem;
+  width: 100%;
+
+  border: 1px solid var(--light-color);
+  padding: 3px;
+  margin-bottom: 10px;
+  box-shadow: var(--box-shadow);
+}
+.menu .box-container .box form .select-crust {
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: var(--light-color);
+  width: 100%;
+}
+.menu .box-container .box form .select-toppings {
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: var(--light-color);
+  width: 100%;
 }
 
 .menu .box-container .box form .qty {

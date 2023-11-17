@@ -156,7 +156,7 @@ if (isset($_POST['order'])) {
 
       <section class="flex">
 
-         <a href="#home" class="logo"><span>P</span>izza.</a>
+         <a href="#home" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
 
          <nav class="navbar">
             <a href="#home">home</a>
@@ -419,9 +419,6 @@ if (isset($_POST['order'])) {
             while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
          ?>
                <div class="box">
-                  <div class="price">$<?= $fetch_products['regular_price'] ?>/-</div>
-                  <div class="price">$<?= $fetch_products['price'] ?>/-</div>
-                  <div class="price">$<?= $fetch_products['price'] ?>/-</div>
                   <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
                   <div class="name"><?= $fetch_products['name'] ?></div>
                   <form action="" method="post">
@@ -430,9 +427,58 @@ if (isset($_POST['order'])) {
                      <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
-                     <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                     <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                     <!-- <div class="radio-container">
+                        <div class="custom-radio">
+                           <input type="radio" id="$fetch_products['id']-regular" name="$fetch_products['id']-size" checked="">
+                           <label class="radio-label" for="$fetch_products['id']-regular">
+                              <div class="radio-circle"></div>
+                              <span class="radio-text">Regular ($<span><?= $fetch_products['regular_price']; ?></span>/-)</span>
+                           </label>
+                           <input type="radio" id="$fetch_products['id']-medium" name="$fetch_products['id']-size">
+                           <label class="radio-label" for="$fetch_products['id']-medium">
+                              <div class="radio-circle"></div>
+                              <span class="radio-text">Medium ($<span><?= $fetch_products['medium_price']; ?></span>/-)</span>
+                           </label>
+                           <input type="radio" id="$fetch_products['id']-large" name="$fetch_products['id']-size">
+                           <label class="radio-label" for="$fetch_products['id']-large">
+                              <div class="radio-circle"></div>
+                              <span class="radio-text">Large ($<span><?= $fetch_products['large_price']; ?></span>/-)</span>
+                           </label>
+                        </div>
+                     </div> -->
+                     <select size="3" class="select-size" name="sizes">
+                        <option value="regular">Regular ($<span><?= $fetch_products['regular_price']; ?></span>)</option>
+                        <option value="medium">Medium ($<span><?= $fetch_products['medium_price']; ?></span>)</option>
+                        <option value="large">Large ($<span><?= $fetch_products['large_price']; ?></span>) </option>
+                     </select>
 
+                     <div class="crust-toppings">
+                        <select class="select-crust" data-value="Crust" name="Crust">
+                           <option value="nht">New Hand Tossed (+$1)</option>
+                           <option value="wtc">100% Wheat Thin Crust (+$1.5)</option>
+                           <option value="nht">Cheese Burst (+$5)</option>
+                           <option value="fpp">Fresh Pan Pizza (+$3)</option>
+                        </select>
+                     </div>
+                     <span> Extra toppings cost $0.5</span>
+                     <div class="crust-toppings">
+                        <select class="select-toppings" data-value="toppings" name="toppings">
+                           <option value="f">NONE</option>
+                           <option value="t">Grilled Mushrooms</option>
+                           <option value="t">Onion</option>
+                           <option value="t">Crisp Capsicum</option>
+                           <option value="t">Fresh Tomatoes</option>
+                           <option value="t">Paneer</option>
+                           <option value="t">Jalepeno</option>
+                           <option value="t">Green and Black Olives</option>
+                        </select>
+                     </div>
+
+
+                     <div class="button">
+                        <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                        <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                     </div>
                   </form>
                </div>
          <?php

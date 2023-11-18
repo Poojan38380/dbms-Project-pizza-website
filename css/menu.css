@@ -1,0 +1,48 @@
+.menu {
+  text-align: center;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-nav {
+  text-align: center;
+  width: 100%;
+  margin-left: 410px;
+  margin-right: auto;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 15px;
+  display: inline-block;
+  font-size: 15px;
+}
+
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.box {
+  text-align: center;
+  margin: 15px;
+}
+
+.box img {
+  max-width: 100%;
+  height: auto;
+}
+.head2 {
+  color: var(--black);
+  text-transform: uppercase;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.heading {
+  font-weight: bold;
+}

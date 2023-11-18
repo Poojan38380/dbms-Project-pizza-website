@@ -316,7 +316,7 @@ if (isset($_POST['order'])) {
          }
          ?>
 
-         <div class="cart-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
+         <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
 
          <a href="#order" class="btn">order now</a>
 
@@ -437,8 +437,8 @@ if (isset($_POST['order'])) {
                      <div class="crust-toppings">
                         <select class="select-crust" data-value="Crust" name="Crust">
                            <option value="nht">New Hand Tossed</option>
-                           <option value="wtc">100% Wheat Thin Crust (+₹75)</option>
-                           <option value="nht">Cheese Burst (+₹120)</option>
+                           <option value="wtc">100% Wheat Thin Crust (+$2)</option>
+                           <option value="nht">Cheese Burst (+$5)</option>
                            <option value="fpp">Fresh Pan Pizza</option>
                         </select>
                      </div>
@@ -677,8 +677,9 @@ if (isset($_POST['order'])) {
 
 
    <!-- custom js file link  -->
-   <script src="js/script.js"></script>
+   <script src="js/main.js"></script>
 
 </body>
 
 </html>
+

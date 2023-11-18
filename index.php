@@ -317,10 +317,10 @@ if (isset($_POST['order'])) {
 
                      <div class="crust-toppings">
                         <select class="select-crust" data-value="Crust" name="Crust">
-                           <option value="nht">New Hand Tossed</option>
-                           <option value="wtc">100% Wheat Thin Crust (+$2)</option>
+                           <option value="nht">New Hand Tossed (+$1)</option>
+                           <option value="wtc">100% Wheat Thin Crust (+$1.5)</option>
                            <option value="nht">Cheese Burst (+$5)</option>
-                           <option value="fpp">Fresh Pan Pizza</option>
+                           <option value="fpp">Fresh Pan Pizza (+$3)</option>
                         </select>
                      </div>
                      <span> Extra toppings cost $0.5</span>

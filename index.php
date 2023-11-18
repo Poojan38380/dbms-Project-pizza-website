@@ -316,7 +316,7 @@ if (isset($_POST['order'])) {
          }
          ?>
 
-         <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+         <div class="cart-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
 
          <a href="#order" class="btn">order now</a>
 
@@ -427,40 +427,22 @@ if (isset($_POST['order'])) {
                      <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
-                     <!-- <div class="radio-container">
-                        <div class="custom-radio">
-                           <input type="radio" id="$fetch_products['id']-regular" name="$fetch_products['id']-size" checked="">
-                           <label class="radio-label" for="$fetch_products['id']-regular">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Regular ($<span><?= $fetch_products['regular_price']; ?></span>/-)</span>
-                           </label>
-                           <input type="radio" id="$fetch_products['id']-medium" name="$fetch_products['id']-size">
-                           <label class="radio-label" for="$fetch_products['id']-medium">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Medium ($<span><?= $fetch_products['medium_price']; ?></span>/-)</span>
-                           </label>
-                           <input type="radio" id="$fetch_products['id']-large" name="$fetch_products['id']-size">
-                           <label class="radio-label" for="$fetch_products['id']-large">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Large ($<span><?= $fetch_products['large_price']; ?></span>/-)</span>
-                           </label>
-                        </div>
-                     </div> -->
+
                      <select size="3" class="select-size" name="sizes">
-                        <option value="regular">Regular ($<span><?= $fetch_products['regular_price']; ?></span>)</option>
-                        <option value="medium">Medium ($<span><?= $fetch_products['medium_price']; ?></span>)</option>
-                        <option value="large">Large ($<span><?= $fetch_products['large_price']; ?></span>) </option>
+                        <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
+                        <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
+                        <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
                      </select>
 
                      <div class="crust-toppings">
                         <select class="select-crust" data-value="Crust" name="Crust">
                            <option value="nht">New Hand Tossed</option>
-                           <option value="wtc">100% Wheat Thin Crust (+$2)</option>
-                           <option value="nht">Cheese Burst (+$5)</option>
+                           <option value="wtc">100% Wheat Thin Crust (+₹75)</option>
+                           <option value="nht">Cheese Burst (+₹120)</option>
                            <option value="fpp">Fresh Pan Pizza</option>
                         </select>
                      </div>
-                     <span> Extra toppings cost $0.5</span>
+                     <span> Extra toppings cost ₹60</span>
                      <div class="crust-toppings">
                         <select class="select-toppings" data-value="toppings" name="toppings">
                            <option value="f">NONE</option>
@@ -524,7 +506,7 @@ if (isset($_POST['order'])) {
 
          </div>
 
-         <div class="grand-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+         <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
 
          <input type="hidden" name="total_products" value="<?= $total_products; ?>">
          <input type="hidden" name="total_price" value="<?= $grand_total; ?>">

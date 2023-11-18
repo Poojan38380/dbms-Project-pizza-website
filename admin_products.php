@@ -20,6 +20,7 @@ if (isset($_POST['add_product'])) {
    $regular_price = filter_var($regular_price, FILTER_SANITIZE_STRING);
    $medium_price = filter_var($medium_price, FILTER_SANITIZE_STRING);
    $large_price = filter_var($large_price, FILTER_SANITIZE_STRING);
+   $category = $_POST['category'];
 
    $image = $_FILES['image']['name'];
    $image = filter_var($image, FILTER_SANITIZE_STRING);
@@ -36,8 +37,8 @@ if (isset($_POST['add_product'])) {
       if ($image_size > 2000000) {
          $message[] = 'image size is too large!';
       } else {
-         $insert_product = $conn->prepare("INSERT INTO `products`(name, image, regular_price, medium_price,large_price) VALUES(?,?,?,?,?)");
-         $insert_product->execute([$name, $image, $regular_price, $medium_price, $large_price]);
+         $insert_product = $conn->prepare("INSERT INTO `products`(name, image, regular_price, medium_price,large_price,category) VALUES(?,?,?,?,?,?)");
+         $insert_product->execute([$name, $image, $regular_price, $medium_price, $large_price, $category]);
          move_uploaded_file($image_tmp_name, $image_folder);
          $message[] = 'new product added!';
       }
@@ -93,6 +94,8 @@ if (isset($_GET['delete'])) {
          <input type="number" min="0" class="box" required max="9999999999" placeholder="Medium price" onkeypress="if(this.value.length == 10) return false;" name="medium_price">
          <!-- large  -->
          <input type="number" min="0" class="box" required max="9999999999" placeholder="Large price" onkeypress="if(this.value.length == 10) return false;" name="large_price">
+         <input type="text" class="box" required maxlength="100" placeholder="Product Category" name="category">
+
 
          <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
          <input type="submit" value="add product" class="btn" name="add_product">
@@ -113,11 +116,14 @@ if (isset($_GET['delete'])) {
             while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
          ?>
                <div class="box">
-                  $<span><?= $fetch_products['regular_price']; ?></span>/-
-                  $<span><?= $fetch_products['medium_price']; ?></span>/-
-                  $<span><?= $fetch_products['large_price']; ?></span>/-
                   <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
                   <div class="name"><?= $fetch_products['name']; ?></div>
+                  <select size="4" class="select-size" name="sizes">
+                     <option>Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
+                     <option>Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
+                     <option>Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
+                     <option>Category - <span><?= $fetch_products['category']; ?></span> </option>
+                  </select>
                   <div class="flex-btn">
                      <a href="admin_product_update.php?update=<?= $fetch_products['id']; ?>" class="option-btn">update</a>
                      <a href="admin_products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">delete</a>

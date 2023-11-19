@@ -67,21 +67,32 @@ if (isset($_POST['add_to_cart'])) {
 
       $pid = $_POST['pid'];
       $name = $_POST['name'];
-      $price = $_POST['price'];
+      $select_price = $conn->prepare("SELECT `regular_price`,`medium_price`,`large_price` FROM `products` WHERE id = ?");
+      $select_price->execute([$pid]);
+      $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
+      $size = $_POST['size'];
+      if ($size == 'regular') {
+         $price = $fetch_price['regular_price'];
+      }
+      if ($size == 'medium') {
+         $price = $fetch_price['medium_price'];
+      }
+      if ($size == 'large') {
+         $price = $fetch_price['large_price'];
+      }
       $image = $_POST['image'];
+      $crust = $_POST['crust'];
+      $toppings = $_POST['toppings'];
       $qty = $_POST['qty'];
       $qty = filter_var($qty, FILTER_SANITIZE_STRING);
 
       $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ? AND name = ?");
       $select_cart->execute([$user_id, $name]);
 
-      if ($select_cart->rowCount() > 0) {
-         $message[] = 'already added to cart';
-      } else {
-         $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
-         $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image]);
-         $message[] = 'added to cart!';
-      }
+
+      $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image,crust,toppings,size) VALUES(?,?,?,?,?,?,?,?,?)");
+      $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image, $crust, $toppings, $size]);
+      $message[] = 'added to cart!';
    }
 }
 
@@ -281,7 +292,7 @@ if (isset($_POST['order'])) {
       </section>
 
    </div>
-
+   <!-- CART  -->
    <div class="shopping-cart">
 
       <section>
@@ -294,14 +305,36 @@ if (isset($_POST['order'])) {
          $select_cart->execute([$user_id]);
          if ($select_cart->rowCount() > 0) {
             while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-               $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
-               $grand_total += $sub_total;
+               $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
          ?>
                <div class="box">
                   <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
                   <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                   <div class="content">
-                     <p> <?= $fetch_cart['name']; ?> <span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <p> <?= $fetch_cart['name']; ?> </p>
+                     <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <?php
+                     if ($fetch_cart['toppings'] == 'f') {
+                        echo "<p> No extra toppings.</p>";
+                     } else {
+
+                        echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                        $item_total += 60;
+                     }
+                     ?>
+                     <p><?= $fetch_cart['crust']; ?>
+                        <?php
+                        if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                           echo "<br><span>(+₹60)</span>";
+                           $item_total += 60;
+                        }
+                        if ($fetch_cart['crust'] == 'Cheese Burst') {
+                           echo "<br><span>(+₹120)</span>";
+                           $item_total += 120;
+                        }
+                        ?></p>
+                     <h2>Item Total : <?= $item_total; ?></h2>
+
                      <form action="" method="post">
                         <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
                         <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" onkeypress="if(this.value.length == 2) return false;">
@@ -310,6 +343,7 @@ if (isset($_POST['order'])) {
                   </div>
                </div>
          <?php
+               $grand_total += $item_total;
             }
          } else {
             echo '<p class="empty"><span>your cart is empty!</span></p>';
@@ -321,6 +355,7 @@ if (isset($_POST['order'])) {
          <a href="#order" class="btn">order now</a>
 
       </section>
+      <!-- CART  -->
 
    </div>
 
@@ -428,31 +463,31 @@ if (isset($_POST['order'])) {
                      <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
 
-                     <select size="3" class="select-size" name="sizes">
+                     <select size="3" class="select-size" name="size" required>
                         <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
                         <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
                         <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
                      </select>
 
                      <div class="crust-toppings">
-                        <select class="select-crust" data-value="Crust" name="Crust">
-                           <option value="nht">New Hand Tossed</option>
-                           <option value="wtc">100% Wheat Thin Crust (+$2)</option>
-                           <option value="nht">Cheese Burst (+$5)</option>
-                           <option value="fpp">Fresh Pan Pizza</option>
+                        <select class="select-crust" data-value="Crust" name="crust">
+                           <option value="New Hand Tossed">New Hand Tossed</option>
+                           <option value="100% Wheat Thin Crust">100% Wheat Thin Crust (+₹60)</option>
+                           <option value="Cheese Burst">Cheese Burst (+₹120)</option>
+                           <option value="Fresh Pan Pizza">Fresh Pan Pizza</option>
                         </select>
                      </div>
                      <span> Extra toppings cost ₹60</span>
                      <div class="crust-toppings">
                         <select class="select-toppings" data-value="toppings" name="toppings">
                            <option value="f">NONE</option>
-                           <option value="t">Grilled Mushrooms</option>
-                           <option value="t">Onion</option>
-                           <option value="t">Crisp Capsicum</option>
-                           <option value="t">Fresh Tomatoes</option>
-                           <option value="t">Paneer</option>
-                           <option value="t">Jalepeno</option>
-                           <option value="t">Green and Black Olives</option>
+                           <option value="Grilled Mushrooms">Grilled Mushrooms</option>
+                           <option value="Onion">Onion</option>
+                           <option value="Crisp Capsicum">Crisp Capsicum</option>
+                           <option value="Fresh Tomatoes">Fresh Tomatoes</option>
+                           <option value="Paneer">Paneer</option>
+                           <option value="Jalepeno">Jalepeno</option>
+                           <option value="Green and Black Olives">Green and Black Olives</option>
                         </select>
                      </div>
 
@@ -682,4 +717,3 @@ if (isset($_POST['order'])) {
 </body>
 
 </html>
-

@@ -411,8 +411,37 @@ if (isset($_POST['order'])) {
       </div>
    </div>
    <!-- testimonials -->
+   <h1 class="heading">Customer Reviews </h1>
 
-
+   <div class="testimonials">
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text and make this cards to center</p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text</p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text </p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+   </div>
    <!-- order section starts  -->
 
    <section class="order" id="order">

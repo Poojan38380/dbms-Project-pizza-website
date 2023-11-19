@@ -381,7 +381,7 @@ if (isset($_POST['order'])) {
                   <img src="images/home-img-2.png" alt="">
                </div>
                <div class="content">
-                  <h3>Pizza With Mushrooms</h3>
+                  <h3>Pizza With Onions</h3>
                   <div class="fas fa-angle-left" onclick="prev()"></div>
                   <div class="fas fa-angle-right" onclick="next()"></div>
                </div>

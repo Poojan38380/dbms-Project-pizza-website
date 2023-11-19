@@ -15,8 +15,14 @@ if(isset($_POST['update_product'])){
    $pid = $_POST['pid'];
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $price = $_POST['price'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
+   $category = $_POST['category'];
+   $category = filter_var($category, FILTER_SANITIZE_STRING);
+   $regular_price = $_POST['regular_price'];
+   $regular_price = filter_var($regular_price, FILTER_SANITIZE_STRING);
+   $medium_price = $_POST['medium_price'];
+   $medium_price = filter_var($medium_price, FILTER_SANITIZE_STRING);
+   $large_price = $_POST['large_price'];
+   $large_price = filter_var($large_price, FILTER_SANITIZE_STRING);
 
    $old_image = $_POST['old_image'];
    $image = $_FILES['image']['name'];
@@ -25,8 +31,8 @@ if(isset($_POST['update_product'])){
    $image_tmp_name = $_FILES['image']['tmp_name'];
    $image_folder = 'uploaded_img/'.$image;
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ? WHERE id = ?");
-   $update_product->execute([$name, $price, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, regular_price = ?, medium_price = ?, large_price = ?, category = ? WHERE id = ?");
+   $update_product->execute([$name, $regular_price, $medium_price, $large_price, $category, $pid]);
 
    $message[] = 'product updated successfully!';
 
@@ -81,7 +87,13 @@ if(isset($_POST['update_product'])){
       <input type="hidden" name="old_image" value="<?= $fetch_products['image']; ?>">
       <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
       <input type="text" class="box" required maxlength="100" placeholder="enter product name" name="name" value="<?= $fetch_products['name']; ?>">
-      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="price" value="<?= $fetch_products['price']; ?>">
+
+      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="regular_price" value="<?= $fetch_products['regular_price']; ?>">
+      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="medium_price" value="<?= $fetch_products['medium_price']; ?>">
+      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="large_price" value="<?= $fetch_products['large_price']; ?>">
+
+      <input type="text" class="box" required maxlength="100" placeholder="enter product category" name="category" value="<?= $fetch_products['category']; ?>">
+
       <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box">
       <div class="flex-btn">
          <input type="submit" value="update product" class="btn" name="update_product">

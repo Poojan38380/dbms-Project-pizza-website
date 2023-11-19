@@ -682,5 +682,9 @@ if (isset($_POST['order'])) {
         </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <<<<<<< HEAD <script src="js/main.js">
+        </script>
+        =======
+        >>>>>>> 572a975a966aa959486d66f13a70224feb14141b
 
 </body>

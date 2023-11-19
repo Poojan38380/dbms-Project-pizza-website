@@ -67,21 +67,32 @@ if (isset($_POST['add_to_cart'])) {
 
       $pid = $_POST['pid'];
       $name = $_POST['name'];
-      $price = $_POST['price'];
+      $select_price = $conn->prepare("SELECT `regular_price`,`medium_price`,`large_price` FROM `products` WHERE id = ?");
+      $select_price->execute([$pid]);
+      $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
+      $size = $_POST['size'];
+      if ($size == 'regular') {
+         $price = $fetch_price['regular_price'];
+      }
+      if ($size == 'medium') {
+         $price = $fetch_price['medium_price'];
+      }
+      if ($size == 'large') {
+         $price = $fetch_price['large_price'];
+      }
       $image = $_POST['image'];
+      $crust = $_POST['crust'];
+      $toppings = $_POST['toppings'];
       $qty = $_POST['qty'];
       $qty = filter_var($qty, FILTER_SANITIZE_STRING);
 
       $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ? AND name = ?");
       $select_cart->execute([$user_id, $name]);
 
-      if ($select_cart->rowCount() > 0) {
-         $message[] = 'already added to cart';
-      } else {
-         $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
-         $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image]);
-         $message[] = 'added to cart!';
-      }
+
+      $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image,crust,toppings,size) VALUES(?,?,?,?,?,?,?,?,?)");
+      $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image, $crust, $toppings, $size]);
+      $message[] = 'added to cart!';
    }
 }
 
@@ -184,7 +195,168 @@ if (isset($_POST['order'])) {
 
    <!-- header section ends -->
 
-    
+   <div class="user-account">
+
+      <section>
+
+         <div id="close-account"><span>close</span></div>
+
+         <div class="user">
+            <?php
+            $select_user = $conn->prepare("SELECT * FROM `user` WHERE id = ?");
+            $select_user->execute([$user_id]);
+            if ($select_user->rowCount() > 0) {
+               while ($fetch_user = $select_user->fetch(PDO::FETCH_ASSOC)) {
+                  echo '<p>welcome ! <span>' . $fetch_user['name'] . '</span></p>';
+                  echo '<a href="index.php?logout" class="btn">logout</a>';
+               }
+            } else {
+               echo '<p><span>you are not logged in now!</span></p>';
+            }
+            ?>
+         </div>
+
+         <div class="display-orders">
+            <?php
+            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+            $select_cart->execute([$user_id]);
+            if ($select_cart->rowCount() > 0) {
+               while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+                  echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
+               }
+            } else {
+               echo '<p><span>your cart is empty!</span></p>';
+            }
+            ?>
+         </div>
+
+         <div class="flex">
+
+            <form action="user_login.php" method="post">
+               <h3>login now</h3>
+               <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
+               <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20">
+               <input type="submit" value="login now" name="login" class="btn">
+            </form>
+
+            <form action="" method="post">
+               <h3>register now</h3>
+               <input type="text" name="name" oninput="this.value = this.value.replace(/\s/g, '')" required class="box" placeholder="enter your username" maxlength="20">
+               <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
+               <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
+               <input type="password" name="cpass" required class="box" placeholder="confirm your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
+               <input type="submit" value="register now" name="register" class="btn">
+            </form>
+
+         </div>
+
+      </section>
+
+   </div>
+
+   <div class="my-orders">
+
+      <section>
+
+         <div id="close-orders"><span>close</span></div>
+
+         <h3 class="title"> my orders </h3>
+
+         <?php
+         $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+         $select_orders->execute([$user_id]);
+         if ($select_orders->rowCount() > 0) {
+            while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+         ?>
+               <div class="box">
+                  <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
+                  <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
+                  <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
+                  <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
+                  <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
+                  <p> total_orders : <span><?= $fetch_orders['total_products']; ?></span> </p>
+                  <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
+                  <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
+                                                               echo 'red';
+                                                            } else {
+                                                               echo 'green';
+                                                            }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
+               </div>
+         <?php
+            }
+         } else {
+            echo '<p class="empty">nothing ordered yet!</p>';
+         }
+         ?>
+
+      </section>
+
+   </div>
+   <!-- CART  -->
+   <div class="shopping-cart">
+
+      <section>
+
+         <div id="close-cart"><span>close</span></div>
+
+         <?php
+         $grand_total = 0;
+         $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+         $select_cart->execute([$user_id]);
+         if ($select_cart->rowCount() > 0) {
+            while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+               $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+         ?>
+               <div class="box">
+                  <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
+                  <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
+                  <div class="content">
+                     <p> <?= $fetch_cart['name']; ?> </p>
+                     <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <?php
+                     if ($fetch_cart['toppings'] == 'f') {
+                        echo "<p> No extra toppings.</p>";
+                     } else {
+
+                        echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                        $item_total += 60;
+                     }
+                     ?>
+                     <p><?= $fetch_cart['crust']; ?>
+                        <?php
+                        if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                           echo "<br><span>(+₹60)</span>";
+                           $item_total += 60;
+                        }
+                        if ($fetch_cart['crust'] == 'Cheese Burst') {
+                           echo "<br><span>(+₹120)</span>";
+                           $item_total += 120;
+                        }
+                        ?></p>
+                     <h2>Item Total : <?= $item_total; ?></h2>
+
+                     <form action="" method="post">
+                        <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
+                        <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" onkeypress="if(this.value.length == 2) return false;">
+                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                     </form>
+                  </div>
+               </div>
+         <?php
+               $grand_total += $item_total;
+            }
+         } else {
+            echo '<p class="empty"><span>your cart is empty!</span></p>';
+         }
+         ?>
+
+         <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+
+         <a href="#order" class="btn">order now</a>
+
+      </section>
+      <!-- CART  -->
+
    </div>
 
    <div class="home-bg">
@@ -290,50 +462,32 @@ if (isset($_POST['order'])) {
                      <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                      <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
-                     <!-- <div class="radio-container">
-                        <div class="custom-radio">
-                           <input type="radio" id="$fetch_products['id']-regular" name="$fetch_products['id']-size" checked="">
-                           <label class="radio-label" for="$fetch_products['id']-regular">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Regular ($<span><?= $fetch_products['regular_price']; ?></span>/-)</span>
-                           </label>
-                           <input type="radio" id="$fetch_products['id']-medium" name="$fetch_products['id']-size">
-                           <label class="radio-label" for="$fetch_products['id']-medium">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Medium ($<span><?= $fetch_products['medium_price']; ?></span>/-)</span>
-                           </label>
-                           <input type="radio" id="$fetch_products['id']-large" name="$fetch_products['id']-size">
-                           <label class="radio-label" for="$fetch_products['id']-large">
-                              <div class="radio-circle"></div>
-                              <span class="radio-text">Large ($<span><?= $fetch_products['large_price']; ?></span>/-)</span>
-                           </label>
-                        </div>
-                     </div> -->
-                     <select size="3" class="select-size" name="sizes">
-                        <option value="regular">Regular ($<span><?= $fetch_products['regular_price']; ?></span>)</option>
-                        <option value="medium">Medium ($<span><?= $fetch_products['medium_price']; ?></span>)</option>
-                        <option value="large">Large ($<span><?= $fetch_products['large_price']; ?></span>) </option>
+
+                     <select size="3" class="select-size" name="size" required>
+                        <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
+                        <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
+                        <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
                      </select>
 
                      <div class="crust-toppings">
-                        <select class="select-crust" data-value="Crust" name="Crust">
-                           <option value="nht">New Hand Tossed</option>
-                           <option value="wtc">100% Wheat Thin Crust (+$2)</option>
-                           <option value="nht">Cheese Burst (+$5)</option>
-                           <option value="fpp">Fresh Pan Pizza</option>
+                        <select class="select-crust" data-value="Crust" name="crust">
+                           <option value="New Hand Tossed">New Hand Tossed</option>
+                           <option value="100% Wheat Thin Crust">100% Wheat Thin Crust (+₹60)</option>
+                           <option value="Cheese Burst">Cheese Burst (+₹120)</option>
+                           <option value="Fresh Pan Pizza">Fresh Pan Pizza</option>
                         </select>
                      </div>
-                     <span> Extra toppings cost $0.5</span>
+                     <span> Extra toppings cost ₹60</span>
                      <div class="crust-toppings">
                         <select class="select-toppings" data-value="toppings" name="toppings">
                            <option value="f">NONE</option>
-                           <option value="t">Grilled Mushrooms</option>
-                           <option value="t">Onion</option>
-                           <option value="t">Crisp Capsicum</option>
-                           <option value="t">Fresh Tomatoes</option>
-                           <option value="t">Paneer</option>
-                           <option value="t">Jalepeno</option>
-                           <option value="t">Green and Black Olives</option>
+                           <option value="Grilled Mushrooms">Grilled Mushrooms</option>
+                           <option value="Onion">Onion</option>
+                           <option value="Crisp Capsicum">Crisp Capsicum</option>
+                           <option value="Fresh Tomatoes">Fresh Tomatoes</option>
+                           <option value="Paneer">Paneer</option>
+                           <option value="Jalepeno">Jalepeno</option>
+                           <option value="Green and Black Olives">Green and Black Olives</option>
                         </select>
                      </div>
 
@@ -387,7 +541,7 @@ if (isset($_POST['order'])) {
 
          </div>
 
-         <div class="grand-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+         <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
 
          <input type="hidden" name="total_products" value="<?= $total_products; ?>">
          <input type="hidden" name="total_price" value="<?= $grand_total; ?>">
@@ -563,4 +717,3 @@ if (isset($_POST['order'])) {
 </body>
 
 </html>
-

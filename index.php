@@ -170,11 +170,11 @@ if (isset($_POST['order'])) {
          <a href="#home" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
 
          <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#about">about</a>
-            <a href="#menu">menu</a>
-            <a href="#order">order</a>
-            <a href="#faq">faq</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="menu.php" class="menu-link">Menu</a>
+            <a href="#order">Order</a>
+            <a href="#faq">FAQ</a>
          </nav>
 
          <div class="icons">
@@ -370,7 +370,7 @@ if (isset($_POST['order'])) {
                   <img src="images/home-img-1.png" alt="">
                </div>
                <div class="content">
-                  <h3>homemade Pepperoni Pizza</h3>
+                  <h3>Homemade Pepperoni Pizza</h3>
                   <div class="fas fa-angle-left" onclick="prev()"></div>
                   <div class="fas fa-angle-right" onclick="next()"></div>
                </div>
@@ -414,22 +414,22 @@ if (isset($_POST['order'])) {
 
          <div class="box">
             <img src="images/about-1.svg" alt="">
-            <h3>made with love</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum quae amet beatae magni numquam facere sit. Tempora vel laboriosam repudiandae!</p>
-            <a href="#menu" class="btn">our menu</a>
+            <h3>Made with Love</h3>
+            <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
+           
          </div>
 
          <div class="box">
             <img src="images/about-2.svg" alt="">
-            <h3>30 minutes delivery</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum quae amet beatae magni numquam facere sit. Tempora vel laboriosam repudiandae!</p>
+            <h3>30-Minute Delivery</h3>
+            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. Enjoy the convenience of swift delivery without compromising on the quality of our delicious creations.</p>
             <a href="#menu" class="btn">our menu</a>
          </div>
 
          <div class="box">
             <img src="images/about-3.svg" alt="">
-            <h3>share with freinds</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum quae amet beatae magni numquam facere sit. Tempora vel laboriosam repudiandae!</p>
+            <h3>Share with Friends</h3>
+            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. Tag along, savor the moments, and make memories one slice at a time.</p>
             <a href="#menu" class="btn">our menu</a>
          </div>
 
@@ -596,41 +596,41 @@ if (isset($_POST['order'])) {
 
          <div class="accordion active">
             <div class="accordion-heading">
-               <span>how does it work?</span>
+               <span>Are your ingredients fresh?</span>
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quas. Quidem minima veniam accusantium maxime, doloremque iusto deleniti veritatis quos.
+              Absolutely! We take pride in using only the freshest, high-quality ingredients. From locally sourced produce to premium cheeses and meats, our commitment to freshness is at the core of our culinary philosophy.
             </p>
          </div>
 
          <div class="accordion">
             <div class="accordion-heading">
-               <span>how long does it take for delivery?</span>
+               <span>What's your delivery time?</span>
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quas. Quidem minima veniam accusantium maxime, doloremque iusto deleniti veritatis quos.
+            We strive for a prompt delivery experience. Our standard delivery time is 30 minutes, ensuring that you receive your hot and fresh pizza in a timely manner.
             </p>
          </div>
 
          <div class="accordion">
             <div class="accordion-heading">
-               <span>can I order for huge parties?</span>
+               <span> Can I place a large order for events or parties?</span>
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quas. Quidem minima veniam accusantium maxime, doloremque iusto deleniti veritatis quos.
+               Certainly! We cater to events of all sizes. Contact our catering team, and we'll help you customize a delicious pizza package that suits your party or gathering.
             </p>
          </div>
 
          <div class="accordion">
             <div class="accordion-heading">
-               <span>how much protein it contains?</span>
+               <span>Can I customize my pizza with specific toppings?</span>
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quas. Quidem minima veniam accusantium maxime, doloremque iusto deleniti veritatis quos.
+                Certainly! Our menu is a starting point. Feel free to customize your pizza with a wide array of toppings to create the perfect flavor combination for your taste buds.
             </p>
          </div>
 
@@ -659,35 +659,32 @@ if (isset($_POST['order'])) {
 
          <div class="box">
             <i class="fas fa-phone"></i>
-            <h3>phone number</h3>
-            <p>+123-456-7890</p>
-            <p>+111-222-3333</p>
+            <h3>Phone Number</h3>
+            <p>+91 8849779702</p>
+            <p>+91 8962749659</p>
          </div>
 
          <div class="box">
             <i class="fas fa-map-marker-alt"></i>
-            <h3>our address</h3>
-            <p>mumbai, india - 400104</p>
+            <h3>Our Address</h3>
+            <p>South Civil Lines, Jabalpur (482001)</p>
          </div>
 
          <div class="box">
             <i class="fas fa-clock"></i>
-            <h3>opening hours</h3>
-            <p>00:09am to 00:10pm</p>
+            <h3>Opening Hours</h3>
+            <p>11:00 am to 11:00 pm</p>
          </div>
 
          <div class="box">
             <i class="fas fa-envelope"></i>
-            <h3>email address</h3>
-            <p>shaikhanas@gmail.com</p>
-            <p>anasbhai@gmail.com</p>
+            <h3>Email Address</h3>
+            <p>poojangoyani@gmail.com</p>
+            <p>pathakarpita867@gmail.com</p>
          </div>
 
       </div>
 
-      <div class="credit">
-         &copy; copyright @ <?= date('Y'); ?> by <span>mr. web designer</span> | all rights reserved!
-      </div>
 
    </section>
 

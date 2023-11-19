@@ -91,9 +91,9 @@ if (isset($_GET['delete'])) {
          <!-- regular -->
          <input type="number" min="0" class="box" required max="9999999999" placeholder="Regular price" onkeypress="if(this.value.length == 10) return false;" name="regular_price">
          <!-- medium -->
-         <input type="number" min="0" class="box" required max="9999999999" placeholder="Medium price" onkeypress="if(this.value.length == 10) return false;" name="medium_price">
+         <input type="number" min="0" class="box"  max="9999999999" placeholder="Medium price" onkeypress="if(this.value.length == 10) return false;" name="medium_price">
          <!-- large  -->
-         <input type="number" min="0" class="box" required max="9999999999" placeholder="Large price" onkeypress="if(this.value.length == 10) return false;" name="large_price">
+         <input type="number" min="0" class="box"  max="9999999999" placeholder="Large price" onkeypress="if(this.value.length == 10) return false;" name="large_price">
          <input type="text" class="box" required maxlength="100" placeholder="Product Category" name="category">
 
 

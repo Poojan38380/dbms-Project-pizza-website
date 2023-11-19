@@ -125,7 +125,7 @@ if (isset($_POST['order'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Responsive Pizza Shop Website Design</title>
+    <title>Pizza Hot</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -133,6 +133,8 @@ if (isset($_POST['order'])) {
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/menu.css">
+
+    
 
 </head>
 
@@ -160,11 +162,11 @@ if (isset($_POST['order'])) {
             <a href="#home" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
 
             <nav class="navbar">
-                <a href="#home">home</a>
-                <a href="#about">about</a>
-                <a href="#menu">menu</a>
-                <a href="#order">order</a>
-                <a href="#faq">faq</a>
+            <a href="index.php #home">Home</a>
+            <a href="index.php #about">About</a>
+            <a href="menu.php" class="menu-link">Menu</a>
+            <a href= "index.php #order">Order</a>
+            <a href="index.php #faq">FAQs</a>
             </nav>
 
             <div class="icons">
@@ -358,6 +360,9 @@ if (isset($_POST['order'])) {
         </nav>
     </section>
     <section id="menu" class="menu">
+    
+    <h3 class="head2">Pizzas</h3>
+
 
         <div class="box-container">
 
@@ -440,247 +445,7 @@ if (isset($_POST['order'])) {
         </div>
 
     </section>
-    <section id="pizzas" class="menu">
-        <h3 class="head2">Pizzas</h3>
-
-
-
-
-        <div class="box-container">
-
-            <div class="box">
-                <div class="price">Rs. 320</div>
-                <img src="project_images/pizza-1.jpg" alt="">
-                <div class="name">Cheesy Delight</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 450</div>
-                <img src="project_images/pizza-2.jpg" alt="">
-                <div class="name">Pepperoni Perfection</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 380</div>
-                <img src="project_images/pizza-3.jpg" alt="">
-                <div class="name">Cheesy Tomato Symphony</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 420</div>
-                <img src="project_images/pizza-4.jpg" alt="">
-                <div class="name">Farmhouse</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 510</div>
-                <img src="project_images/pizza-5.jpg" alt="">
-                <div class="name">Mushroom Marvel</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 290</div>
-                <img src="project_images/pizza-6.jpg" alt="">
-                <div class="name">Margherita Classic</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 570</div>
-                <img src="project_images/pizza-7.jpg" alt="">
-                <div class="name">Hawaiian Retreat</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 430</div>
-                <img src="project_images/pizza-8.jpg" alt="">
-                <div class="name">Veggie Delight</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 450</div>
-                <img src="project_images/pizza-9.jpg" alt="">
-                <div class="name">Mediterranean Harvest</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-        </div>
-
-    </section>
-    <section id="sides" class="menu">
-        <h3 class="head2">Sides</h3>
-        <div class="box-container">
-
-            <div class="box">
-                <div class="price">Rs. 280</div>
-                <img src="project_images/pasta1.jpg" alt="">
-                <div class="name">Arrabiata Pasta</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 280</div>
-                <img src="project_images/pasta2.jpg" alt="">
-                <div class="name">Alfredo Pasta</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 250</div>
-                <img src="project_images/pasta3.jpg" alt="">
-                <div class="name">Pesto Pasta</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-
-            <div class="box">
-                <div class="price">Rs. 150</div>
-                <img src="project_images/fries.jpg" alt="">
-                <div class="name">Potato Fries</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 200</div>
-                <img src="project_images/nachos.jpg" alt="">
-                <div class="name">Loaded Nachos</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 230</div>
-                <img src="project_images/salad.jpg" alt="">
-                <div class="name">Zucchini Salad</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-        </div>
-    </section>
-    <section id="beverages" class="menu">
-        <h3 class="head2">Beverages</h3>
-
-        <div class="box-container">
-
-            <div class="box">
-                <div class="price">Rs. 60</div>
-                <img src="project_images/coke.jpg" alt="">
-                <div class="name">Coca-Cola</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-
-            <div class="box">
-                <div class="price">Rs. 60</div>
-                <img src="project_images/fanta.jpg" alt="">
-                <div class="name">Fanta</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-
-            <div class="box">
-                <div class="price">Rs. 60</div>
-                <img src="project_images/sprite.jpg" alt="">
-                <div class="name">Sprite</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-        </div>
-    </section>
-    <section id="desserts" class="menu">
-        <h3 class="head2">Desserts</h3>
-        <div class="box-container">
-
-            <div class="box">
-                <div class="price">Rs. 150</div>
-                <img src="images/cake1.jpg" alt="">
-                <div class="name">Choco Lava Cake</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 180</div>
-                <img src="images/cake2.jpg" alt="">
-                <div class="name">Classic Cheesecake</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="price">Rs. 200</div>
-                <img src="images/sundae.jpg" alt="">
-                <div class="name">Choco Sundae</div>
-                <form action="" method="post">
-                    <input type="number" min="1" max="100" value="1" class="qty" name="qty">
-                    <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-                </form>
-            </div>
-        </div>
-    </section>
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <<<<<<< HEAD <script src="js/main.js">
         </script>

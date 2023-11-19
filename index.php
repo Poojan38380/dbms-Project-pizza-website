@@ -136,7 +136,7 @@ if (isset($_POST['order'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Complete Responsive Pizza Shop Website Design</title>
+   <title>Pizza Hot</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -174,7 +174,7 @@ if (isset($_POST['order'])) {
             <a href="#about">About</a>
             <a href="menu.php" class="menu-link">Menu</a>
             <a href="#order">Order</a>
-            <a href="#faq">FAQ</a>
+            <a href="#faq">FAQs</a>
          </nav>
 
          <div class="icons">
@@ -422,15 +422,14 @@ if (isset($_POST['order'])) {
          <div class="box">
             <img src="images/about-2.svg" alt="">
             <h3>30-Minute Delivery</h3>
-            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. Enjoy the convenience of swift delivery without compromising on the quality of our delicious creations.</p>
-            <a href="#menu" class="btn">our menu</a>
+            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
          </div>
 
          <div class="box">
             <img src="images/about-3.svg" alt="">
             <h3>Share with Friends</h3>
-            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. Tag along, savor the moments, and make memories one slice at a time.</p>
-            <a href="#menu" class="btn">our menu</a>
+            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
+            
          </div>
 
       </div>
@@ -590,7 +589,7 @@ if (isset($_POST['order'])) {
 
    <section class="faq" id="faq">
 
-      <h1 class="heading">FAQ</h1>
+      <h1 class="heading">FAQs</h1>
 
       <div class="accordion-container">
 
@@ -635,15 +634,7 @@ if (isset($_POST['order'])) {
          </div>
 
 
-         <div class="accordion">
-            <div class="accordion-heading">
-               <span>is it cooked with oil?</span>
-               <i class="fas fa-angle-down"></i>
-            </div>
-            <p class="accrodion-content">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quas. Quidem minima veniam accusantium maxime, doloremque iusto deleniti veritatis quos.
-            </p>
-         </div>
+           
 
       </div>
 
@@ -673,7 +664,9 @@ if (isset($_POST['order'])) {
          <div class="box">
             <i class="fas fa-clock"></i>
             <h3>Opening Hours</h3>
-            <p>11:00 am to 11:00 pm</p>
+            <p>11:00 am to <br>
+                
+                   11:00 pm</p>
          </div>
 
          <div class="box">

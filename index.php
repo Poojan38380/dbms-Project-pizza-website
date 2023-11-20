@@ -401,7 +401,7 @@ if (isset($_POST['order'])) {
    </section>
 
    <!-- about section ends -->
-   <h1 class="heading">Check out the latest offers </h1>
+   <h1 class="heading">Latest Offers </h1>
 
    <div class="banner-container">
       <div class="banner-wrapper">
@@ -411,34 +411,29 @@ if (isset($_POST['order'])) {
       </div>
    </div>
    <!-- testimonials -->
-   <h1 class="heading">Customer Reviews </h1>
+   <h1 class="heading">Reviews We Take Pride In</h1>
 
    <div class="testimonials">
+     
       <figure class="snip1533">
          <figcaption>
-            <blockquote>
-               <p>edit this text and make this cards to center</p>
-            </blockquote>
-            <h3>edit this text</h3>
-            <h4>edit this text</h4>
+            
+            <h3>"From the first bite to the last, Pizza Hot delivers an unforgettable pizza experience. The perfect blend of flavors and quality ingredients puts them in a league of their own."</h3>
+            <h4>Eater</h4>
          </figcaption>
       </figure>
       <figure class="snip1533">
          <figcaption>
-            <blockquote>
-               <p>edit this text</p>
-            </blockquote>
-            <h3>edit this text</h3>
-            <h4>edit this text</h4>
+           
+            <h3>"Having tried pizzas from various establishments, Pizza Hot consistently impresses with their inventive combinations and top-notch ingredients."</h3>
+            <h4>The Infatuation</h4>
          </figcaption>
       </figure>
       <figure class="snip1533">
          <figcaption>
-            <blockquote>
-               <p>edit this text </p>
-            </blockquote>
-            <h3>edit this text</h3>
-            <h4>edit this text</h4>
+            
+            <h3>"Pizza Hot stands out for its exceptional pizzas. The crust is a masterpiece, and the toppings are a symphony of taste. A must-try for any pizza lover!"</h3>
+            <h4>Bon Appétit</h4>
          </figcaption>
       </figure>
    </div>

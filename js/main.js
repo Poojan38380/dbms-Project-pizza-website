@@ -63,3 +63,5 @@ accordion.forEach(acco =>{
       acco.classList.add('active');
    }
 });
+
+

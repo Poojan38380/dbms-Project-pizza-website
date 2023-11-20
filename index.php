@@ -59,42 +59,7 @@ if (isset($_GET['logout'])) {
    header('location:index.php');
 }
 
-if (isset($_POST['add_to_cart'])) {
 
-   if ($user_id == '') {
-      $message[] = 'please login first!';
-   } else {
-
-      $pid = $_POST['pid'];
-      $name = $_POST['name'];
-      $select_price = $conn->prepare("SELECT `regular_price`,`medium_price`,`large_price` FROM `products` WHERE id = ?");
-      $select_price->execute([$pid]);
-      $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
-      $size = $_POST['size'];
-      if ($size == 'regular') {
-         $price = $fetch_price['regular_price'];
-      }
-      if ($size == 'medium') {
-         $price = $fetch_price['medium_price'];
-      }
-      if ($size == 'large') {
-         $price = $fetch_price['large_price'];
-      }
-      $image = $_POST['image'];
-      $crust = $_POST['crust'];
-      $toppings = $_POST['toppings'];
-      $qty = $_POST['qty'];
-      $qty = filter_var($qty, FILTER_SANITIZE_STRING);
-
-      $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ? AND name = ?");
-      $select_cart->execute([$user_id, $name]);
-
-
-      $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image,crust,toppings,size) VALUES(?,?,?,?,?,?,?,?,?)");
-      $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image, $crust, $toppings, $size]);
-      $message[] = 'added to cart!';
-   }
-}
 
 if (isset($_POST['order'])) {
 
@@ -168,13 +133,12 @@ if (isset($_POST['order'])) {
       <section class="flex">
 
          <a href="#home" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
-
          <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
+            <a href="index.php ">Home</a>
+            <a href="index.php #about">About</a>
             <a href="menu.php" class="menu-link">Menu</a>
-            <a href="#order">Order</a>
-            <a href="#faq">FAQs</a>
+            <a href="index.php #order">Order</a>
+            <a href="index.php #faq">FAQs</a>
          </nav>
 
          <div class="icons">
@@ -416,7 +380,7 @@ if (isset($_POST['order'])) {
             <img src="images/about-1.svg" alt="">
             <h3>Made with Love</h3>
             <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
-           
+
          </div>
 
          <div class="box">
@@ -429,7 +393,7 @@ if (isset($_POST['order'])) {
             <img src="images/about-3.svg" alt="">
             <h3>Share with Friends</h3>
             <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
-            
+
          </div>
 
       </div>
@@ -437,79 +401,47 @@ if (isset($_POST['order'])) {
    </section>
 
    <!-- about section ends -->
+   <h1 class="heading">Check out the latest offers </h1>
 
-   <!-- menu section starts  -->
-
-   <section id="menu" class="menu">
-
-      <h1 class="heading">our menu</h1>
-
-      <div class="box-container">
-
-         <?php
-         $select_products = $conn->prepare("SELECT * FROM `products`");
-         $select_products->execute();
-         if ($select_products->rowCount() > 0) {
-            while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-         ?>
-               <div class="box">
-                  <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
-                  <div class="name"><?= $fetch_products['name'] ?></div>
-                  <form action="" method="post">
-                     <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
-                     <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
-                     <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
-                     <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
-
-
-                     <select size="3" class="select-size" name="size" required>
-                        <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
-                        <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
-                        <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
-                     </select>
-
-                     <div class="crust-toppings">
-                        <select class="select-crust" data-value="Crust" name="crust">
-                           <option value="New Hand Tossed">New Hand Tossed</option>
-                           <option value="100% Wheat Thin Crust">100% Wheat Thin Crust (+₹60)</option>
-                           <option value="Cheese Burst">Cheese Burst (+₹120)</option>
-                           <option value="Fresh Pan Pizza">Fresh Pan Pizza</option>
-                        </select>
-                     </div>
-                     <span> Extra toppings cost ₹60</span>
-                     <div class="crust-toppings">
-                        <select class="select-toppings" data-value="toppings" name="toppings">
-                           <option value="f">NONE</option>
-                           <option value="Grilled Mushrooms">Grilled Mushrooms</option>
-                           <option value="Onion">Onion</option>
-                           <option value="Crisp Capsicum">Crisp Capsicum</option>
-                           <option value="Fresh Tomatoes">Fresh Tomatoes</option>
-                           <option value="Paneer">Paneer</option>
-                           <option value="Jalepeno">Jalepeno</option>
-                           <option value="Green and Black Olives">Green and Black Olives</option>
-                        </select>
-                     </div>
-
-
-                     <div class="button">
-                        <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                        <input type="submit" class="btn" name="add_to_cart" value="add to cart">
-                     </div>
-                  </form>
-               </div>
-         <?php
-            }
-         } else {
-            echo '<p class="empty">no products added yet!</p>';
-         }
-         ?>
-
+   <div class="banner-container">
+      <div class="banner-wrapper">
+         <img src="images/banner3.png">
+         <img src="images/banner2.png">
+         <img src="images/banner1.png">
       </div>
+   </div>
+   <!-- testimonials -->
+   <h1 class="heading">Customer Reviews </h1>
 
-   </section>
-
-   <!-- menu section ends -->
-
+   <div class="testimonials">
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text and make this cards to center</p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text</p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+      <figure class="snip1533">
+         <figcaption>
+            <blockquote>
+               <p>edit this text </p>
+            </blockquote>
+            <h3>edit this text</h3>
+            <h4>edit this text</h4>
+         </figcaption>
+      </figure>
+   </div>
    <!-- order section starts  -->
 
    <section class="order" id="order">
@@ -599,7 +531,7 @@ if (isset($_POST['order'])) {
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-              Absolutely! We take pride in using only the freshest, high-quality ingredients. From locally sourced produce to premium cheeses and meats, our commitment to freshness is at the core of our culinary philosophy.
+               Absolutely! We take pride in using only the freshest, high-quality ingredients. From locally sourced produce to premium cheeses and meats, our commitment to freshness is at the core of our culinary philosophy.
             </p>
          </div>
 
@@ -609,7 +541,7 @@ if (isset($_POST['order'])) {
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-            We strive for a prompt delivery experience. Our standard delivery time is 30 minutes, ensuring that you receive your hot and fresh pizza in a timely manner.
+               We strive for a prompt delivery experience. Our standard delivery time is 30 minutes, ensuring that you receive your hot and fresh pizza in a timely manner.
             </p>
          </div>
 
@@ -629,12 +561,12 @@ if (isset($_POST['order'])) {
                <i class="fas fa-angle-down"></i>
             </div>
             <p class="accrodion-content">
-                Certainly! Our menu is a starting point. Feel free to customize your pizza with a wide array of toppings to create the perfect flavor combination for your taste buds.
+               Certainly! Our menu is a starting point. Feel free to customize your pizza with a wide array of toppings to create the perfect flavor combination for your taste buds.
             </p>
          </div>
 
 
-           
+
 
       </div>
 
@@ -665,8 +597,8 @@ if (isset($_POST['order'])) {
             <i class="fas fa-clock"></i>
             <h3>Opening Hours</h3>
             <p>11:00 am to <br>
-                
-                   11:00 pm</p>
+
+               11:00 pm</p>
          </div>
 
          <div class="box">

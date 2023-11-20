@@ -475,6 +475,49 @@ if (isset($_POST['order'])) {
 
         </div>
 
+        <!-- Sides -->
+
+        <h3 class="head2">Sides</h3>
+
+        <div class="box-container">
+
+            <?php
+            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Sides'");
+            $select_products->execute();
+            if ($select_products->rowCount() > 0) {
+                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                    <div class="box">
+                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                        <div class="name"><?= $fetch_products['name'] ?></div>
+                        <form action="" method="post">
+                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                            <input type="hidden" name="crust">
+                            <input type="hidden" name="toppings">
+                            <input type="hidden" name="size">
+                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
+
+
+
+
+
+                            <div class="button">
+                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                            </div>
+                        </form>
+                    </div>
+            <?php
+                }
+            } else {
+                echo '<p class="empty">no products added yet!</p>';
+            }
+            ?>
+
+        </div>
         <!-- Beverages -->
 
         <h3 class="head2">Beverages</h3>
@@ -483,6 +526,49 @@ if (isset($_POST['order'])) {
 
             <?php
             $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Beverages'");
+            $select_products->execute();
+            if ($select_products->rowCount() > 0) {
+                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                    <div class="box">
+                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                        <div class="name"><?= $fetch_products['name'] ?></div>
+                        <form action="" method="post">
+                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                            <input type="hidden" name="crust">
+                            <input type="hidden" name="toppings">
+                            <input type="hidden" name="size">
+                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
+
+
+
+
+
+                            <div class="button">
+                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                            </div>
+                        </form>
+                    </div>
+            <?php
+                }
+            } else {
+                echo '<p class="empty">no products added yet!</p>';
+            }
+            ?>
+
+        </div>
+        <!-- Desserts -->
+
+        <h3 class="head2">Desserts</h3>
+
+        <div class="box-container">
+
+            <?php
+            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Desserts'");
             $select_products->execute();
             if ($select_products->rowCount() > 0) {
                 while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {

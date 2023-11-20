@@ -401,7 +401,7 @@ if (isset($_POST['order'])) {
    </section>
 
    <!-- about section ends -->
-   <h1 class="heading">Check out the latest offers </h1>
+   <h1 class="heading">Check out the latest offers! </h1>
 
    <div class="banner-container">
       <div class="banner-wrapper">

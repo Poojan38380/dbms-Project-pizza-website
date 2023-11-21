@@ -414,28 +414,83 @@ if (isset($_POST['order'])) {
    <h1 class="heading">Reviews We Take Pride In</h1>
 
    <div class="testimonials">
-     
+
       <figure class="snip1533">
          <figcaption>
-            
-            <h3>"From the first bite to the last, Pizza Hot delivers an unforgettable pizza experience. The perfect blend of flavors and quality ingredients puts them in a league of their own."</h3>
-            <h4>Eater</h4>
+            <blockquote>
+               <p>Having tried pizzas from various establishments, Pizza Hot consistently impresses with their inventive combinations and top-notch ingredients.</p>
+            </blockquote>
+            <h3>The Infatuation</h3>
+            <h4>Rated 4.8/5</h4>
          </figcaption>
       </figure>
       <figure class="snip1533">
          <figcaption>
-           
-            <h3>"Having tried pizzas from various establishments, Pizza Hot consistently impresses with their inventive combinations and top-notch ingredients."</h3>
-            <h4>The Infatuation</h4>
+
+            <blockquote>
+               <p>From the first bite to the last, Pizza Hot delivers an unforgettable pizza experience. The perfect blend of flavors and quality ingredients puts them in a league of their own.</p>
+            </blockquote>
+            <h3>Eater</h3>
+            <h4>Rated 5/5</h4>
          </figcaption>
       </figure>
       <figure class="snip1533">
          <figcaption>
-            
-            <h3>"Pizza Hot stands out for its exceptional pizzas. The crust is a masterpiece, and the toppings are a symphony of taste. A must-try for any pizza lover!"</h3>
-            <h4>Bon Appétit</h4>
+
+            <blockquote>
+               <p>Pizza Hot stands out for its exceptional pizzas. The crust is a masterpiece, and the toppings are a symphony of taste. A must-try for any pizza lover!</p>
+            </blockquote>
+            <h3>Bon Appétit</h3>
+            <h4>Rated 4.9/5</h4>
          </figcaption>
       </figure>
+   </div>
+
+
+   <!-- image cards -->
+   <h1 class="heading">Products we offer (make the headings to center and customize these cards)</h1>
+
+   <div class="card-section">
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/pizza1.png">
+            </div>
+
+            <button class="card-button">More info</button>
+         </div>
+         <h1>Pizzas </h1>
+      </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/sides1.png">
+            </div>
+
+            <button class="card-button">More info</button>
+         </div>
+         <h1>Sides</h1>
+      </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/beverages1.png">
+            </div>
+
+            <button class="card-button">More info</button>
+         </div>
+         <h1>Beverages</h1>
+      </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/desserts1.png">
+            </div>
+
+            <button class="card-button">More info</button>
+         </div>
+         <h1>Desserts</h1>
+      </div>
    </div>
    <!-- order section starts  -->
 

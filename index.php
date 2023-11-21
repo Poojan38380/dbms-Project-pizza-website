@@ -448,7 +448,7 @@ if (isset($_POST['order'])) {
 
 
    <!-- image cards -->
-   <h1 class="heading">Products we offer (make the headings to center and customize these cards)</h1>
+   <h1 class="heading">Our Offered Products</h1>
 
    <div class="card-section">
       <div class="card-container">
@@ -457,9 +457,9 @@ if (isset($_POST['order'])) {
                <img src="./images/pizza1.png">
             </div>
 
-            <button class="card-button">More info</button>
+           
          </div>
-         <h1>Pizzas </h1>
+         <h1 class="subheads">Pizzas </h1>
       </div>
       <div class="card-container">
          <div class="card">
@@ -467,9 +467,9 @@ if (isset($_POST['order'])) {
                <img src="./images/sides1.png">
             </div>
 
-            <button class="card-button">More info</button>
+           
          </div>
-         <h1>Sides</h1>
+         <h1 class="subheads">Sides</h1>
       </div>
       <div class="card-container">
          <div class="card">
@@ -477,9 +477,9 @@ if (isset($_POST['order'])) {
                <img src="./images/beverages1.png">
             </div>
 
-            <button class="card-button">More info</button>
+          
          </div>
-         <h1>Beverages</h1>
+         <h1 class="subheads">Beverages</h1>
       </div>
       <div class="card-container">
          <div class="card">
@@ -487,9 +487,9 @@ if (isset($_POST['order'])) {
                <img src="./images/desserts1.png">
             </div>
 
-            <button class="card-button">More info</button>
+            
          </div>
-         <h1>Desserts</h1>
+         <h1 class="subheads">Desserts</h1>
       </div>
    </div>
    <!-- order section starts  -->

@@ -989,7 +989,8 @@ body section {
   }
   .card-section {
     grid-template-columns: auto auto;
-    column-gap: 5rem;
+    column-gap: 2rem;
+    
   }
   .card {
     width: 225px;
@@ -1060,4 +1061,16 @@ body section {
   .menu .box-container {
     grid-template-columns: 1fr;
   }
+}
+.card-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  
+}
+
+.subheads{
+  text-align: center;
 }

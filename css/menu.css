@@ -1,24 +1,32 @@
 .menu {
     text-align: center;
   }
-  
-  .container-fluid {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .navbar-nav {
-    text-align: center;
-    width: 100%;
-    margin-left: 410px;
-    margin-right: auto;
-  }
-  
-  .navbar-nav .nav-item {
-    margin: 0 15px;
-    display: inline-block;
-    font-size: 15px;
-  }
+
+
+
+.headingmenu {
+  font-size: 3.5rem; 
+}
+
+.topnav {
+  background-color: #ffffff; 
+  overflow: hidden;
+  text-align: center;
+}
+
+.topnav a {
+  display: inline-block;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #000000; 
+  font-size: 18px; 
+  transition: color 0.3s ease; 
+}
+
+.topnav a:hover {
+  color: #e74c3c; 
+}
+
   
   .box-container {
     display: flex;

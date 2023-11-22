@@ -493,7 +493,7 @@ if (isset($_POST['order'])) {
       </div>
    </div>
    <!-- order section starts  -->
-
+         <!--
    <section class="order" id="order">
 
       <h1 class="heading">order now</h1>
@@ -564,7 +564,7 @@ if (isset($_POST['order'])) {
       </form>
 
    </section>
-
+         -->
    <!-- order section ends -->
 
    <!-- faq section starts  -->

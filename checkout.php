@@ -315,7 +315,7 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> Grand Total : <span>Rs. <?= $grand_total; ?>/-</span></div>
 
             <a href="#order" class="btn">order now</a>
 
@@ -397,43 +397,44 @@ if (isset($_POST['order'])) {
                 }
                 ?>
 
-                <div class="cart-total"> GRAND TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
+                <div class="cart-total"> GRAND TOTAL : <span>Rs. <?= $grand_total; ?>/-</span></div>
 
             </div>
-
-            <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
+               
 
             <input type="hidden" name="total_products" value="<?= $total_products; ?>">
             <input type="hidden" name="total_price" value="<?= $grand_total; ?>">
 
             <div class="flex">
                 <div class="inputBox">
-                    <span>your name :</span>
+                    <span>Name:</span>
                     <input type="text" name="name" class="box" required placeholder="enter your name" maxlength="20">
                 </div>
                 <div class="inputBox">
-                    <span>your number :</span>
+                    <span>Contact Number:</span>
                     <input type="number" name="number" class="box" required placeholder="enter your number" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;">
                 </div>
                 <div class="inputBox">
-                    <span>payment method</span>
+                    <span>Payment Method</span>
                     <select name="method" class="box">
-                        <option value="cash on delivery">cash on delivery</option>
-                        <option value="credit card">credit card</option>
-                        <option value="paytm">paytm</option>
-                        <option value="paypal">paypal</option>
+                        <option value="cash on delivery">Cash on Delivery</option>
+                        <option value="credit card">Credit Card</option>
+                        <option value="paytm">Paytm</option>
+                        <option value="paypal">Paypal</option>
                     </select>
                 </div>
+                <!--
                 <div class="inputBox">
                     <span>address line 01 :</span>
                     <input type="text" name="flat" class="box" required placeholder="e.g. flat no." maxlength="50">
                 </div>
+            -->
                 <div class="inputBox">
-                    <span>address line 02 :</span>
-                    <input type="text" name="street" class="box" required placeholder="e.g. street name." maxlength="50">
+                    <span>Address:</span>
+                    <input type="text" name="street" class="box" required placeholder="e.g. street name." maxlength="70">
                 </div>
                 <div class="inputBox">
-                    <span>pin code :</span>
+                    <span>Pin Code:</span>
                     <input type="number" name="pin_code" class="box" required placeholder="e.g. 123456" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;">
                 </div>
             </div>

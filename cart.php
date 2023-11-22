@@ -398,7 +398,7 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> GRAND TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> GRAND TOTAL : <span>Rs. <?= $grand_total; ?>/-</span></div>
 
             <a href="checkout.php" class="btn">order now</a>
 

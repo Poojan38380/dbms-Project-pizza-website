@@ -276,27 +276,30 @@ if (isset($_POST['order'])) {
                   <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                   <div class="content">
                      <p> <?= $fetch_cart['name']; ?> </p>
-                     <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                     <?php
-                     if ($fetch_cart['toppings'] == 'f') {
-                        echo "<p> No extra toppings.</p>";
-                     } else {
-
-                        echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
-                        $item_total += 60;
-                     }
-                     ?>
-                     <p><?= $fetch_cart['crust']; ?>
+                     <?php if ($fetch_cart['category'] == 'Pizza') { ?><p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
                         <?php
-                        if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                           echo "<br><span>(+₹60)</span>";
+                        if ($fetch_cart['toppings'] == 'f') {
+                           echo "<p> No extra toppings.</p>";
+                        } else {
+
+                           echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
                            $item_total += 60;
                         }
-                        if ($fetch_cart['crust'] == 'Cheese Burst') {
-                           echo "<br><span>(+₹120)</span>";
-                           $item_total += 120;
-                        }
-                        ?></p>
+                        ?>
+                        <p><?= $fetch_cart['crust']; ?>
+                           <?php
+                           if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                              echo "<br><span>(+₹60)</span>";
+                              $item_total += 60;
+                           }
+                           if ($fetch_cart['crust'] == 'Cheese Burst') {
+                              echo "<br><span>(+₹120)</span>";
+                              $item_total += 120;
+                           }
+                           ?></p><?php } else {
+                                          ?>
+                        <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <?php } ?>
                      <h2>Item Total : <?= $item_total; ?></h2>
 
                      <form action="" method="post">
@@ -316,12 +319,13 @@ if (isset($_POST['order'])) {
 
          <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
 
-         <a href="#order" class="btn">order now</a>
+         <a href="cart.php" class="btn">Confirm Order</a>
 
       </section>
       <!-- CART  -->
 
    </div>
+
 
    <div class="home-bg">
 
@@ -457,7 +461,7 @@ if (isset($_POST['order'])) {
                <img src="./images/pizza1.png">
             </div>
 
-           
+
          </div>
          <h1 class="subheads">Pizzas </h1>
       </div>
@@ -467,7 +471,7 @@ if (isset($_POST['order'])) {
                <img src="./images/sides1.png">
             </div>
 
-           
+
          </div>
          <h1 class="subheads">Sides</h1>
       </div>
@@ -477,7 +481,7 @@ if (isset($_POST['order'])) {
                <img src="./images/beverages1.png">
             </div>
 
-          
+
          </div>
          <h1 class="subheads">Beverages</h1>
       </div>
@@ -487,85 +491,12 @@ if (isset($_POST['order'])) {
                <img src="./images/desserts1.png">
             </div>
 
-            
+
          </div>
          <h1 class="subheads">Desserts</h1>
       </div>
    </div>
-   <!-- order section starts  -->
 
-   <section class="order" id="order">
-
-      <h1 class="heading">order now</h1>
-
-      <form action="" method="post">
-
-         <div class="display-orders">
-
-            <?php
-            $grand_total = 0;
-            $cart_item[] = '';
-            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            $select_cart->execute([$user_id]);
-            if ($select_cart->rowCount() > 0) {
-               while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                  $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
-                  $grand_total += $sub_total;
-                  $cart_item[] = $fetch_cart['name'] . ' ( ' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ' ) - ';
-                  $total_products = implode($cart_item);
-                  echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
-               }
-            } else {
-               echo '<p class="empty"><span>your cart is empty!</span></p>';
-            }
-            ?>
-
-         </div>
-
-         <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
-
-         <input type="hidden" name="total_products" value="<?= $total_products; ?>">
-         <input type="hidden" name="total_price" value="<?= $grand_total; ?>">
-
-         <div class="flex">
-            <div class="inputBox">
-               <span>your name :</span>
-               <input type="text" name="name" class="box" required placeholder="enter your name" maxlength="20">
-            </div>
-            <div class="inputBox">
-               <span>your number :</span>
-               <input type="number" name="number" class="box" required placeholder="enter your number" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;">
-            </div>
-            <div class="inputBox">
-               <span>payment method</span>
-               <select name="method" class="box">
-                  <option value="cash on delivery">cash on delivery</option>
-                  <option value="credit card">credit card</option>
-                  <option value="paytm">paytm</option>
-                  <option value="paypal">paypal</option>
-               </select>
-            </div>
-            <div class="inputBox">
-               <span>address line 01 :</span>
-               <input type="text" name="flat" class="box" required placeholder="e.g. flat no." maxlength="50">
-            </div>
-            <div class="inputBox">
-               <span>address line 02 :</span>
-               <input type="text" name="street" class="box" required placeholder="e.g. street name." maxlength="50">
-            </div>
-            <div class="inputBox">
-               <span>pin code :</span>
-               <input type="number" name="pin_code" class="box" required placeholder="e.g. 123456" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;">
-            </div>
-         </div>
-
-         <input type="submit" value="order now" class="btn" name="order">
-
-      </form>
-
-   </section>
-
-   <!-- order section ends -->
 
    <!-- faq section starts  -->
 

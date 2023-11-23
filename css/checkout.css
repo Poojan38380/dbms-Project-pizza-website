@@ -1,0 +1,100 @@
+:root {
+  --red: #e74c3c;
+  --black: #333;
+  --white: #fff;
+  --light-bg: #f5f5f5;
+  --light-color: #666;
+  --border: 0.1rem solid var(--light-color);
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+:root {
+  --red: #e74c3c;
+  --black: #333;
+  --white: #fff;
+  --light-bg: #f5f5f5;
+  --light-color: #666;
+  --border: 0.1rem solid var(--light-color);
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+.checkout form {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.checkout-orders {
+  background-color: var(--light-bg);
+  border-radius: 0.5rem;
+  padding: 1rem 1rem;
+
+  color: var(--light-color);
+}
+.single-order-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--white);
+  margin: 1.5rem 2rem;
+  padding: 1rem 2rem;
+}
+.checkout-orders .content .title {
+  font-size: 1.7rem;
+  color: black;
+}
+
+.checkout-orders .content .title {
+  font-size: 1.7rem;
+  color: black;
+}
+.checkout-orders .content .subprices {
+  font-size: 1.3rem;
+  color: var(--red);
+}
+.checkout-orders .content .subheading {
+  font-size: 1.4rem;
+}
+.item-total {
+  margin: auto 0;
+}
+.item-total p {
+  color: var(--red);
+  font-size: 2rem;
+}
+.g-total-wo-discount {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--black);
+  margin-top: 2rem ;
+}
+.g-total {
+  text-align: center;
+  font-size: 3rem;
+  color: var(--red);
+  margin-top: 2rem ;
+}
+.checkout form .flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.checkout form .flex .inputBox {
+  width: 49%;
+}
+
+.checkout form .flex .inputBox span {
+  font-size: 1.8rem;
+  color: var(--light-color);
+}
+
+.checkout form .flex .inputBox .box {
+  width: 100%;
+  background-color: var(--light-bg);
+  padding: 1.4rem;
+  font-size: 1.8rem;
+  color: var(--black);
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}

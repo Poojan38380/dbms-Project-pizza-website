@@ -373,6 +373,7 @@ if (isset($_POST['order'])) {
 
 <div class="card-section">
    <div class="card-container">
+   <a href="menu.php#pizzas">
       <div class="card">
          <div class="card-details">
             <img src="./images/pizza1.png">
@@ -383,6 +384,7 @@ if (isset($_POST['order'])) {
       <h1 class="subheads">Pizzas </h1>
    </div>
    <div class="card-container">
+   <a href="menu.php#sides">
       <div class="card">
          <div class="card-details">
             <img src="./images/sides1.png">
@@ -393,6 +395,7 @@ if (isset($_POST['order'])) {
       <h1 class="subheads">Sides</h1>
    </div>
    <div class="card-container">
+   <a href="menu.php#beverages">
       <div class="card">
          <div class="card-details">
             <img src="./images/beverages1.png">
@@ -403,6 +406,7 @@ if (isset($_POST['order'])) {
       <h1 class="subheads">Beverages</h1>
    </div>
    <div class="card-container">
+   <a href="menu.php#desserts">
       <div class="card">
          <div class="card-details">
             <img src="./images/desserts1.png">

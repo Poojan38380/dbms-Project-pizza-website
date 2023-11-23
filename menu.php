@@ -184,7 +184,7 @@ if (isset($_POST['order'])) {
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
                 <a href="menu.php" class="menu-link">Menu</a>
-                <a href="cart.php">Order</a>
+               
                 <a href="index.php #faq">FAQs</a>
             </nav>
 

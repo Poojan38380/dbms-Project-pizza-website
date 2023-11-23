@@ -153,6 +153,10 @@ if (isset($_POST['order'])) {
 
 </head>
 
+
+
+
+
 <body>
 
     <?php
@@ -180,7 +184,7 @@ if (isset($_POST['order'])) {
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
                 <a href="menu.php" class="menu-link">Menu</a>
-                <a href="index.php #order">Order</a>
+               
                 <a href="index.php #faq">FAQs</a>
             </nav>
 
@@ -359,9 +363,13 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> Grand Total : <span>Rs. <?= $grand_total; ?>/-</span></div>
 
+<<<<<<< HEAD
             <a href="cart.php" class="btn">Confirm Order</a>
+=======
+            <a href="cart.php" class="btn">View Cart</a>
+>>>>>>> 076a0f9bd9c710202d68842f47d7f39b104aca71
 
         </section>
         <!-- CART  -->

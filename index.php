@@ -137,7 +137,6 @@ if (isset($_POST['order'])) {
             <a href="index.php ">Home</a>
             <a href="index.php #about">About</a>
             <a href="menu.php" class="menu-link">Menu</a>
-            <a href="index.php #order">Order</a>
             <a href="index.php #faq">FAQs</a>
          </nav>
 
@@ -372,39 +371,58 @@ if (isset($_POST['order'])) {
 
    </div>
 
-   <!-- about section starts  -->
 
-   <section class="about" id="about">
+   <!-- image cards -->
+ <h1 class="heading">Our Offered Products</h1>
 
-      <h1 class="heading">about us</h1>
-
-      <div class="box-container">
-
-         <div class="box">
-            <img src="images/about-1.svg" alt="">
-            <h3>Made with Love</h3>
-            <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
-
+<div class="card-section">
+   <div class="card-container">
+   <a href="menu.php#pizzas">
+      <div class="card">
+         <div class="card-details">
+            <img src="./images/pizza1.png">
          </div>
 
-         <div class="box">
-            <img src="images/about-2.svg" alt="">
-            <h3>30-Minute Delivery</h3>
-            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
-         </div>
-
-         <div class="box">
-            <img src="images/about-3.svg" alt="">
-            <h3>Share with Friends</h3>
-            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
-
-         </div>
-
+        
       </div>
+      <h1 class="subheads">Pizzas </h1>
+   </div>
+   <div class="card-container">
+   <a href="menu.php#sides">
+      <div class="card">
+         <div class="card-details">
+            <img src="./images/sides1.png">
+         </div>
 
-   </section>
+        
+      </div>
+      <h1 class="subheads">Sides</h1>
+   </div>
+   <div class="card-container">
+   <a href="menu.php#beverages">
+      <div class="card">
+         <div class="card-details">
+            <img src="./images/beverages1.png">
+         </div>
 
-   <!-- about section ends -->
+       
+      </div>
+      <h1 class="subheads">Beverages</h1>
+   </div>
+   <div class="card-container">
+   <a href="menu.php#desserts">
+      <div class="card">
+         <div class="card-details">
+            <img src="./images/desserts1.png">
+         </div>
+
+         
+      </div>
+      <h1 class="subheads">Desserts</h1>
+   </div>
+</div>
+
+  
    <h1 class="heading">Latest Offers </h1>
 
    <div class="banner-container">
@@ -414,6 +432,9 @@ if (isset($_POST['order'])) {
          <img src="images/banner1.png">
       </div>
    </div>
+
+ 
+
    <!-- testimonials -->
    <h1 class="heading">Reviews We Take Pride In</h1>
 
@@ -451,16 +472,11 @@ if (isset($_POST['order'])) {
    </div>
 
 
-   <!-- image cards -->
-   <h1 class="heading">Our Offered Products</h1>
+    <!-- about section starts  -->
 
-   <div class="card-section">
-      <div class="card-container">
-         <div class="card">
-            <div class="card-details">
-               <img src="./images/pizza1.png">
-            </div>
+    <section class="about" id="about">
 
+<<<<<<< HEAD
 
          </div>
          <h1 class="subheads">Pizzas </h1>
@@ -497,6 +513,114 @@ if (isset($_POST['order'])) {
       </div>
    </div>
 
+=======
+<h1 class="heading">about us</h1>
+
+<div class="box-container">
+
+   <div class="box">
+      <img src="images/about-1.svg" alt="">
+      <h3>Made with Love</h3>
+      <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
+
+   </div>
+
+   <div class="box">
+      <img src="images/about-2.svg" alt="">
+      <h3>30-Minute Delivery</h3>
+      <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
+   </div>
+
+   <div class="box">
+      <img src="images/about-3.svg" alt="">
+      <h3>Share with Friends</h3>
+      <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
+
+   </div>
+
+</div>
+
+</section>
+
+<!-- about section ends -->
+
+
+  
+   <!-- order section starts  -->
+         <!--
+   <section class="order" id="order">
+
+      <h1 class="heading">order now</h1>
+
+      <form action="" method="post">
+
+         <div class="display-orders">
+
+            <?php
+            $grand_total = 0;
+            $cart_item[] = '';
+            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+            $select_cart->execute([$user_id]);
+            if ($select_cart->rowCount() > 0) {
+               while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+                  $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                  $grand_total += $sub_total;
+                  $cart_item[] = $fetch_cart['name'] . ' ( ' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ' ) - ';
+                  $total_products = implode($cart_item);
+                  echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
+               }
+            } else {
+               echo '<p class="empty"><span>your cart is empty!</span></p>';
+            }
+            ?>
+
+         </div>
+
+         <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
+
+         <input type="hidden" name="total_products" value="<?= $total_products; ?>">
+         <input type="hidden" name="total_price" value="<?= $grand_total; ?>">
+
+         <div class="flex">
+            <div class="inputBox">
+               <span>your name :</span>
+               <input type="text" name="name" class="box" required placeholder="enter your name" maxlength="20">
+            </div>
+            <div class="inputBox">
+               <span>your number :</span>
+               <input type="number" name="number" class="box" required placeholder="enter your number" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;">
+            </div>
+            <div class="inputBox">
+               <span>payment method</span>
+               <select name="method" class="box">
+                  <option value="cash on delivery">cash on delivery</option>
+                  <option value="credit card">credit card</option>
+                  <option value="paytm">paytm</option>
+                  <option value="paypal">paypal</option>
+               </select>
+            </div>
+            <div class="inputBox">
+               <span>address line 01 :</span>
+               <input type="text" name="flat" class="box" required placeholder="e.g. flat no." maxlength="50">
+            </div>
+            <div class="inputBox">
+               <span>address line 02 :</span>
+               <input type="text" name="street" class="box" required placeholder="e.g. street name." maxlength="50">
+            </div>
+            <div class="inputBox">
+               <span>pin code :</span>
+               <input type="number" name="pin_code" class="box" required placeholder="e.g. 123456" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;">
+            </div>
+         </div>
+
+         <input type="submit" value="order now" class="btn" name="order">
+
+      </form>
+
+   </section>
+         -->
+   <!-- order section ends -->
+>>>>>>> 076a0f9bd9c710202d68842f47d7f39b104aca71
 
    <!-- faq section starts  -->
 

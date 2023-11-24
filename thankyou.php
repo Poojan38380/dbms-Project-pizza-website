@@ -70,19 +70,19 @@ if (isset($_POST['order'])) {
         $name = filter_var($name, FILTER_SANITIZE_STRING);
         $number = $_POST['number'];
         $number = filter_var($number, FILTER_SANITIZE_STRING);
-        $address = 'flat no.' . $_POST['flat'] . ', ' . $_POST['street'] . ' - ' . $_POST['pin_code'];
+        $address = $_POST['flat'] . ', ' . $_POST['street'] . ' - ' . $_POST['pin_code'];
         $address = filter_var($address, FILTER_SANITIZE_STRING);
         $method = $_POST['method'];
         $method = filter_var($method, FILTER_SANITIZE_STRING);
         $total_price = $_POST['total_price'];
-        $total_products = $_POST['total_products'];
+        $items_list = $_POST['items_list'];
 
         $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
         $select_cart->execute([$user_id]);
 
         if ($select_cart->rowCount() > 0) {
-            $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?)");
-            $insert_order->execute([$user_id, $name, $number, $method, $address, $total_products, $total_price]);
+            $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, method, address, total_price,items_list) VALUES(?,?,?,?,?,?,?)");
+            $insert_order->execute([$user_id, $name, $number, $method, $address, $total_price, $items_list]);
             $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
             $delete_cart->execute([$user_id]);
             $message[] = 'order placed successfully!';
@@ -91,7 +91,9 @@ if (isset($_POST['order'])) {
         }
     }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,15 +101,15 @@ if (isset($_POST['order'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Pizza Hot</title>
+    <title>Pizza Hot</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/cart.css">
-
+    <link rel="stylesheet" href="css/thankyou.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
 </head>
@@ -133,8 +135,7 @@ if (isset($_POST['order'])) {
 
         <section class="flex">
 
-            <a href="index.php" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
-
+            <a href="#home" class="logo"><img class="logo_img" width="175px" src="project_images/wide_logo.png"></a>
             <nav class="navbar">
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
@@ -159,6 +160,7 @@ if (isset($_POST['order'])) {
 
     </header>
 
+    <!-- header section ends -->
 
     <div class="user-account">
 
@@ -218,7 +220,6 @@ if (isset($_POST['order'])) {
         </section>
 
     </div>
-
     <!-- order section starts -->
     <div class="my-orders">
 
@@ -262,6 +263,7 @@ if (isset($_POST['order'])) {
     </div>
     <!-- order section ends -->
 
+    <!-- CART  -->
     <div class="shopping-cart">
 
         <section>
@@ -274,37 +276,34 @@ if (isset($_POST['order'])) {
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
                 while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = $fetch_cart['price'];
+                    $item_total = ($fetch_cart['price']);
             ?>
                     <div class="box">
                         <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
                         <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                         <div class="content">
                             <p> <?= $fetch_cart['name']; ?> </p>
-                            <?php if ($fetch_cart['category'] == 'Pizza') { ?><p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                                <?php
-                                if ($fetch_cart['toppings'] == 'f') {
-                                    echo "<p> No extra toppings.</p>";
-                                } else {
+                            <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                            <?php
+                            if ($fetch_cart['toppings'] == 'f') {
+                                echo "<p> No extra toppings.</p>";
+                            } else {
 
-                                    echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                                echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                                $item_total += 60;
+                            }
+                            ?>
+                            <p><?= $fetch_cart['crust']; ?>
+                                <?php
+                                if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                                    echo "<br><span>(+₹60)</span>";
                                     $item_total += 60;
                                 }
-                                ?>
-                                <p><?= $fetch_cart['crust']; ?>
-                                    <?php
-                                    if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                                        echo "<br><span>(+₹60)</span>";
-                                        $item_total += 60;
-                                    }
-                                    if ($fetch_cart['crust'] == 'Cheese Burst') {
-                                        echo "<br><span>(+₹120)</span>";
-                                        $item_total += 120;
-                                    }
-                                    ?></p><?php } else {
-                                            ?>
-                                <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                            <?php } ?>
+                                if ($fetch_cart['crust'] == 'Cheese Burst') {
+                                    echo "<br><span>(+₹120)</span>";
+                                    $item_total += 120;
+                                }
+                                ?></p>
                             <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
 
                             <h2>Item Total : <?= $item_total; ?></h2>
@@ -324,96 +323,24 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>Rs.<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
 
             <a href="#order" class="btn">order now</a>
 
         </section>
 
-
     </div>
-    <div class="display-cart">
-        <section>
+    <!-- CART  -->
 
-            <?php
-            $grand_total = 0;
-            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            $select_cart->execute([$user_id]);
-            if ($select_cart->rowCount() > 0) {
-                while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = $fetch_cart['price'];
-            ?>
-                    <div class="cart-box">
+    <div class="thanks">
+
+        <i class='bx bx-check-circle ' id="check"></i>
+        <h1 class="headnew">Thank You for Your Order!</h1>
+        <p>We're on it! Your delicious pizza will be delivered within the next 30 minutes—nice and fresh.</p>
 
 
+        <script src="js/main.js"></script>
 
-                        <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
-
-
-                        <div class="content">
-
-                            <p class="title"> <?= $fetch_cart['name']; ?> </p>
-
-                            <?php if ($fetch_cart['category'] == 'Pizza') { ?><p class="size"> <?= $fetch_cart['size']; ?><br><span class="price">(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                                <?php
-                                if ($fetch_cart['toppings'] == 'f') {
-                                    echo "<p> No extra toppings.</p>";
-                                } else {
-                                ?>
-                                    <p class="cart-subheadings"> Extra <?= $fetch_cart['toppings']; ?> <br><span class="price">(+₹60)</span></p>
-                                <?php $item_total += 60;
-                                }
-                                ?>
-                                <p class="cart-subheadings"><?= $fetch_cart['crust']; ?>
-                                    <?php
-                                    if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                                    ?>
-                                        <br><span class="price">(+₹60)</span>
-
-                                    <?php $item_total += 60;
-                                    }
-                                    if ($fetch_cart['crust'] == 'Cheese Burst') {
-                                    ?>
-                                        <br><span class="price">(+₹120)</span>
-
-                                    <?php
-                                        $item_total += 120;
-                                    }
-                                    ?>
-                                </p><?php } else {
-                                    ?>
-                                <p class="price"><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                            <?php } ?>
-
-                            <form action="" method="post">
-                                <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
-                                <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" onkeypress="if(this.value.length == 2) return false;">
-                                <button type="submit" class="fas fa-edit" name="update_qty"></button>
-                                <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
-
-                                <h2 class="item-total">Item Total : <?= $item_total; ?></h2>
-
-                            </form>
-                        </div>
-                        <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
-                    </div>
-            <?php
-                    $grand_total += $item_total;
-                }
-            } else {
-                echo '<p class="empty"><span>your cart is empty!</span></p>';
-            }
-            ?>
-
-            <div class="cart-total"> GRAND TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
-
-            <a href="checkout.php" class="btn">Order Now</a>
-
-        </section>
-    </div>
-
-    <script src="js/main.js">
-    </script>
 </body>
 
 </html>

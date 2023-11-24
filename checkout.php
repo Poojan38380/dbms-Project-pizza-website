@@ -151,7 +151,7 @@ if (isset($_POST['order'])) {
                 $count_cart_items->execute([$user_id]);
                 $total_cart_items = $count_cart_items->rowCount();
                 ?>
-                <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>
+                <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div> -->
             </div>
 
         </section>
@@ -218,7 +218,7 @@ if (isset($_POST['order'])) {
         </section>
 
     </div>
-
+    <!-- order section starts -->
     <div class="my-orders">
 
         <section>
@@ -259,6 +259,8 @@ if (isset($_POST['order'])) {
         </section>
 
     </div>
+    <!-- order section ends -->
+
     <!-- CART  -->
     <div class="shopping-cart">
 
@@ -272,7 +274,7 @@ if (isset($_POST['order'])) {
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
                 while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                    $item_total = ($fetch_cart['price']);
             ?>
                     <div class="box">
                         <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
@@ -300,6 +302,8 @@ if (isset($_POST['order'])) {
                                     $item_total += 120;
                                 }
                                 ?></p>
+                            <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
+
                             <h2>Item Total : <?= $item_total; ?></h2>
 
                             <form action="" method="post">
@@ -317,14 +321,14 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> grand total : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
             <a href="#order" class="btn">order now</a>
 
         </section>
-        <!-- CART  -->
 
     </div>
+    <!-- CART  -->
 
     <!-- order section starts  -->
 
@@ -332,7 +336,7 @@ if (isset($_POST['order'])) {
 
         <h1 class="heading">Checkout</h1>
 
-        <form action="" method="post">
+        <form action="thankyou.php" method="post">
 
             <div class="checkout-orders">
 
@@ -404,10 +408,10 @@ if (isset($_POST['order'])) {
                                         }
                                     } ?>
                                 </div>
-
+                                <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
                                 <div class="item-total">
                                     <p class="item-price"><?= $item_total;
-                                                            $items_list = '</br>'; ?></p>
+                                                            $items_list .= '</br>'; ?></p>
 
 
                                 </div>
@@ -417,8 +421,8 @@ if (isset($_POST['order'])) {
                             $grand_total += $item_total;
                         } ?>
                     </div>
-                    <div class="g-total-wo-discount">TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
-                    <div class="g-total"> GRAND TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
+                    <div class="g-total-wo-discount">TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
+                    <div class="g-total"> GRAND TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
             </div>
         <?php    } else {

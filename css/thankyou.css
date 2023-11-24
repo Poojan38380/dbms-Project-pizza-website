@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .thanks {
+    max-width: 800px; 
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .headnew {
+    color: #333;
+    font-size: 32px;  
+    margin-bottom: 20px;  
+  }
+  
+  p {
+    color: #555;
+    font-size: 18px;  }
+  
+  .header {
+    margin-bottom: 30px;  
+  }
+  
+  #check{
+   
+      font-size: 50px;
+      color: green;
+  
+  }

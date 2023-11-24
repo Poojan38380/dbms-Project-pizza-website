@@ -260,6 +260,7 @@ if (isset($_POST['order'])) {
 
     </div>
 
+    <!-- order section starts -->
     <div class="my-orders">
 
         <section>
@@ -280,7 +281,9 @@ if (isset($_POST['order'])) {
                         <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
                         <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
                         <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                        <p> total_orders : <span><?= $fetch_orders['total_products']; ?></span> </p>
+                        <div class="details">
+                            <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                        </div>
                         <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
                         <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
                                                                     echo 'red';
@@ -298,7 +301,8 @@ if (isset($_POST['order'])) {
         </section>
 
     </div>
-
+    <!-- order section ends -->
+    <!-- CART  -->
     <div class="shopping-cart">
 
         <section>
@@ -311,37 +315,36 @@ if (isset($_POST['order'])) {
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
                 while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                    $item_total = $fetch_cart['price'];
             ?>
                     <div class="box">
                         <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
                         <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                         <div class="content">
                             <p> <?= $fetch_cart['name']; ?> </p>
-                            <?php if ($fetch_cart['category'] == 'Pizza') { ?><p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                                <?php
-                                if ($fetch_cart['toppings'] == 'f') {
-                                    echo "<p> No extra toppings.</p>";
-                                } else {
+                            <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                            <?php
+                            if ($fetch_cart['toppings'] == 'f') {
+                                echo "<p> No extra toppings.</p>";
+                            } else {
 
-                                    echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                                echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                                $item_total += 60;
+                            }
+                            ?>
+                            <p><?= $fetch_cart['crust']; ?>
+                                <?php
+                                if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                                    echo "<br><span>(+₹60)</span>";
                                     $item_total += 60;
                                 }
-                                ?>
-                                <p><?= $fetch_cart['crust']; ?>
-                                    <?php
-                                    if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                                        echo "<br><span>(+₹60)</span>";
-                                        $item_total += 60;
-                                    }
-                                    if ($fetch_cart['crust'] == 'Cheese Burst') {
-                                        echo "<br><span>(+₹120)</span>";
-                                        $item_total += 120;
-                                    }
-                                    ?></p><?php } else {
-                                            ?>
-                                <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                            <?php } ?>
+                                if ($fetch_cart['crust'] == 'Cheese Burst') {
+                                    echo "<br><span>(+₹120)</span>";
+                                    $item_total += 120;
+                                }
+                                ?></p>
+                            <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
+
                             <h2>Item Total : <?= $item_total; ?></h2>
 
                             <form action="" method="post">
@@ -359,14 +362,14 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> grand total : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
-            <a href="cart.php" class="btn">Confirm Order</a>
+            <a href=cart.php class="btn">order now</a>
 
         </section>
-        <!-- CART  -->
-
+        
     </div>
+    <!-- CART  -->
 
     <!-- BASE STRUCTURE !!! MUST BE INCLUDED IN EVERY PAGE  -->
 
@@ -381,214 +384,214 @@ if (isset($_POST['order'])) {
     <section id="menu" class="menu">
         <h1 class="headingmenu">OUR MENU</h1>
         <div class="topnav">
-  <a href="#pizzas">Pizzas</a>
-  <a href="#sides">Sides</a>
-  <a href="#beverages">Beverages</a>
-  <a href="#desserts">Desserts</a>
-</div>
-     
+            <a href="#pizzas">Pizzas</a>
+            <a href="#sides">Sides</a>
+            <a href="#beverages">Beverages</a>
+            <a href="#desserts">Desserts</a>
+        </div>
+
     </section>
     <section id="menu" class="menu">
         <!-- Pizzas
  -->
- <section id="pizzas" class="menu-section">
-        <h3 class="head2">Pizzas</h3>
+        <section id="pizzas" class="menu-section">
+            <h3 class="head2">Pizzas</h3>
 
 
-        <div class="box-container">
+            <div class="box-container">
 
-            <?php
-            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Pizza' ");
-            $select_products->execute();
-            if ($select_products->rowCount() > 0) {
-                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
-                        <div class="name"><?= $fetch_products['name'] ?></div>
-                        <form action="" method="post">
-                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
-                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
-                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
-                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
-                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
+                <?php
+                $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Pizza' ");
+                $select_products->execute();
+                if ($select_products->rowCount() > 0) {
+                    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                        <div class="box">
+                            <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                            <div class="name"><?= $fetch_products['name'] ?></div>
+                            <form action="" method="post">
+                                <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                                <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                                <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                                <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                                <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
 
-                            <select size="3" class="select-size" name="size" required>
-                                <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
-                                <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
-                                <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
-                            </select>
-
-                            <div class="crust-toppings">
-                                <select class="select-crust" data-value="Crust" name="crust">
-                                    <option value="New Hand Tossed">New Hand Tossed</option>
-                                    <option value="100% Wheat Thin Crust">100% Wheat Thin Crust (+₹60)</option>
-                                    <option value="Cheese Burst">Cheese Burst (+₹120)</option>
-                                    <option value="Fresh Pan Pizza">Fresh Pan Pizza</option>
+                                <select size="3" class="select-size" name="size" required>
+                                    <option value="regular">Regular (₹<span><?= $fetch_products['regular_price']; ?></span>)</option>
+                                    <option value="medium">Medium (₹<span><?= $fetch_products['medium_price']; ?></span>)</option>
+                                    <option value="large">Large (₹<span><?= $fetch_products['large_price']; ?></span>) </option>
                                 </select>
-                            </div>
-                            <span> Extra toppings cost ₹60</span>
-                            <div class="crust-toppings">
-                                <select class="select-toppings" data-value="toppings" name="toppings">
-                                    <option value="f">NONE</option>
-                                    <option value="Grilled Mushrooms">Grilled Mushrooms</option>
-                                    <option value="Onion">Onion</option>
-                                    <option value="Crisp Capsicum">Crisp Capsicum</option>
-                                    <option value="Fresh Tomatoes">Fresh Tomatoes</option>
-                                    <option value="Paneer">Paneer</option>
-                                    <option value="Jalepeno">Jalepeno</option>
-                                    <option value="Green and Black Olives">Green and Black Olives</option>
-                                </select>
-                            </div>
+
+                                <div class="crust-toppings">
+                                    <select class="select-crust" data-value="Crust" name="crust">
+                                        <option value="New Hand Tossed">New Hand Tossed</option>
+                                        <option value="100% Wheat Thin Crust">100% Wheat Thin Crust (+₹60)</option>
+                                        <option value="Cheese Burst">Cheese Burst (+₹120)</option>
+                                        <option value="Fresh Pan Pizza">Fresh Pan Pizza</option>
+                                    </select>
+                                </div>
+                                <span> Extra toppings cost ₹60</span>
+                                <div class="crust-toppings">
+                                    <select class="select-toppings" data-value="toppings" name="toppings">
+                                        <option value="f">NONE</option>
+                                        <option value="Grilled Mushrooms">Grilled Mushrooms</option>
+                                        <option value="Onion">Onion</option>
+                                        <option value="Crisp Capsicum">Crisp Capsicum</option>
+                                        <option value="Fresh Tomatoes">Fresh Tomatoes</option>
+                                        <option value="Paneer">Paneer</option>
+                                        <option value="Jalepeno">Jalepeno</option>
+                                        <option value="Green and Black Olives">Green and Black Olives</option>
+                                    </select>
+                                </div>
 
 
-                            <div class="button">
-                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
-                            </div>
-                        </form>
-                    </div>
-            <?php
+                                <div class="button">
+                                    <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                    <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                                </div>
+                            </form>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="empty">no products added yet!</p>';
                 }
-            } else {
-                echo '<p class="empty">no products added yet!</p>';
-            }
-            ?>
+                ?>
 
-        </div>
+            </div>
         </section>
         <!-- Sides -->
         <section id="sides" class="menu-section">
-        <h3 class="head2" >Sides</h3>
+            <h3 class="head2">Sides</h3>
 
-        <div class="box-container" >
+            <div class="box-container">
 
-            <?php
-            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Sides'");
-            $select_products->execute();
-            if ($select_products->rowCount() > 0) {
-                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
-                        <div class="name"><?= $fetch_products['name'] ?></div>
-                        <form action="" method="post">
-                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
-                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
-                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
-                            <input type="hidden" name="crust">
-                            <input type="hidden" name="toppings">
-                            <input type="hidden" name="size">
-                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
-                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
-
-
+                <?php
+                $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Sides'");
+                $select_products->execute();
+                if ($select_products->rowCount() > 0) {
+                    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                        <div class="box">
+                            <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                            <div class="name"><?= $fetch_products['name'] ?></div>
+                            <form action="" method="post">
+                                <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                                <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                                <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                                <input type="hidden" name="crust">
+                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="size">
+                                <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                                <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
 
 
-                            <div class="button">
-                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
-                            </div>
-                        </form>
-                    </div>
-            <?php
+
+
+                                <div class="button">
+                                    <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                    <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                                </div>
+                            </form>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="empty">no products added yet!</p>';
                 }
-            } else {
-                echo '<p class="empty">no products added yet!</p>';
-            }
-            ?>
+                ?>
 
-        </div>
+            </div>
         </section>
         <!-- Beverages -->
         <section id="beverages" class="menu-section">
-        <h3 class="head2">Beverages</h3>
+            <h3 class="head2">Beverages</h3>
 
-        <div class="box-container">
+            <div class="box-container">
 
-            <?php
-            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Beverages'");
-            $select_products->execute();
-            if ($select_products->rowCount() > 0) {
-                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
-                        <div class="name"><?= $fetch_products['name'] ?></div>
-                        <form action="" method="post">
-                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
-                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
-                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
-                            <input type="hidden" name="crust">
-                            <input type="hidden" name="toppings">
-                            <input type="hidden" name="size">
-                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
-                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
-
-
+                <?php
+                $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Beverages'");
+                $select_products->execute();
+                if ($select_products->rowCount() > 0) {
+                    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                        <div class="box">
+                            <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                            <div class="name"><?= $fetch_products['name'] ?></div>
+                            <form action="" method="post">
+                                <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                                <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                                <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                                <input type="hidden" name="crust">
+                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="size">
+                                <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                                <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
 
 
-                            <div class="button">
-                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
-                            </div>
-                        </form>
-                    </div>
-            <?php
+
+
+                                <div class="button">
+                                    <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                    <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                                </div>
+                            </form>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="empty">no products added yet!</p>';
                 }
-            } else {
-                echo '<p class="empty">no products added yet!</p>';
-            }
-            ?>
+                ?>
 
-        </div>
+            </div>
         </section>
         <!-- Desserts -->
         <section id="desserts" class="menu-section">
-        <h3 class="head2">Desserts</h3>
+            <h3 class="head2">Desserts</h3>
 
-        <div class="box-container">
+            <div class="box-container">
 
-            <?php
-            $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Desserts'");
-            $select_products->execute();
-            if ($select_products->rowCount() > 0) {
-                while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
-                        <div class="name"><?= $fetch_products['name'] ?></div>
-                        <form action="" method="post">
-                            <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
-                            <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
-                            <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
-                            <input type="hidden" name="crust">
-                            <input type="hidden" name="toppings">
-                            <input type="hidden" name="size">
-                            <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
-                            <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
-
-
+                <?php
+                $select_products = $conn->prepare("SELECT * FROM `products` where `category` ='Desserts'");
+                $select_products->execute();
+                if ($select_products->rowCount() > 0) {
+                    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                        <div class="box">
+                            <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
+                            <div class="name"><?= $fetch_products['name'] ?></div>
+                            <form action="" method="post">
+                                <input type="hidden" name="pid" value="<?= $fetch_products['id'] ?>">
+                                <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
+                                <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
+                                <input type="hidden" name="crust">
+                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="size">
+                                <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
+                                <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
 
 
 
-                            <div class="button">
-                                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-                                <input type="submit" class="btn" name="add_to_cart" value="add to cart">
-                            </div>
-                        </form>
-                    </div>
-            <?php
+
+
+                                <div class="button">
+                                    <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                                    <input type="submit" class="btn" name="add_to_cart" value="add to cart">
+                                </div>
+                            </form>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="empty">no products added yet!</p>';
                 }
-            } else {
-                echo '<p class="empty">no products added yet!</p>';
-            }
-            ?>
+                ?>
 
-        </div>
+            </div>
         </section>
     </section>
 

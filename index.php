@@ -560,7 +560,7 @@ if (isset($_POST['order'])) {
 
    <!-- footer section starts  -->
 
-   <section class="footer">
+   <div class="footer">
 
       <div class="box-container">
 
@@ -595,7 +595,7 @@ if (isset($_POST['order'])) {
       </div>
 
 
-   </section>
+   </div>
 
    <!-- footer section ends -->
 

@@ -338,8 +338,9 @@ if (isset($_POST['order'])) {
         <h1 class="headnew">Thank You for Your Order!</h1>
         <p>We're on it! Your delicious pizza will be delivered within the next 30 minutes—nice and fresh.</p>
 
+    </div>
 
-        <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 

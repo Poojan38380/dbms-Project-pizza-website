@@ -412,9 +412,9 @@ if (isset($_POST['order'])) {
 
         </section>
     </div>
-<!-- footer section starts  -->
+    <!-- footer section starts  -->
 
-<div class="footer">
+    <div class="footer">
 
 <div class="box-container">
 
@@ -448,14 +448,13 @@ if (isset($_POST['order'])) {
 
 </div>
 
-<div class="credit">
-   &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
+
 </div>
-</section>
 
 <!-- footer section ends -->
-    <script src="js/main.js">
-    </script>
+        <script src="js/main.js">
+        </script>
+    </div>
 </body>
 
 </html>

@@ -149,7 +149,7 @@ if (isset($_POST['order'])) {
             $count_cart_items->execute([$user_id]);
             $total_cart_items = $count_cart_items->rowCount();
             ?>
-            <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>
+           <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>-->
          </div>
 
       </section>

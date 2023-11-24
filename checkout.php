@@ -415,8 +415,8 @@ if (isset($_POST['order'])) {
                             $grand_total += $item_total;
                         } ?>
                     </div>
-                    <div class="g-total-wo-discount">TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
-                    <div class="g-total"> GRAND TOTAL : <span>$<?= $grand_total; ?>/-</span></div>
+                    <div class="g-total-wo-discount">TOTAL : <span>Rs. <?= $grand_total; ?>/-</span></div>
+                    <div class="g-total"> GRAND TOTAL : <span>Rs. <?= $grand_total; ?>/-</span></div>
 
             </div>
         <?php    } else {
@@ -463,7 +463,8 @@ if (isset($_POST['order'])) {
             </div>
         </div>
 
-        <input type="submit" value="order now" class="btn" name="order">
+        <a href="thankyou.php" class="btn" name="order">Order Now</a>
+
 
         </form>
 

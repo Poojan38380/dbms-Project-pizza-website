@@ -101,7 +101,7 @@ if (isset($_POST['order'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Hot</title>
+    <title>Checkout - Pizza Hot</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -138,7 +138,7 @@ if (isset($_POST['order'])) {
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
                 <a href="menu.php" class="menu-link">Menu</a>
-                <a href="index.php #order">Order</a>
+
                 <a href="index.php #faq">FAQs</a>
             </nav>
 
@@ -239,9 +239,7 @@ if (isset($_POST['order'])) {
                         <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
                         <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
                         <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                        <div class="details">
-                            <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
-                        </div>
+                        <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
                         <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
                         <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
                                                                     echo 'red';
@@ -469,13 +467,55 @@ if (isset($_POST['order'])) {
             </div>
         </div>
 
-        <input type="submit" value="order now" class="btn" name="order">
+        <a href="thankyou.php" class="btn" name="order">Order Now</a>
+
 
         </form>
 
     </section>
+    <!-- footer section starts  -->
 
-    <script src="js/main.js"></script>
+    <div class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Number</h3>
+                <p>+91 8849779702</p>
+                <p>+91 8962749659</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Our Address</h3>
+                <p>South Civil Lines, Jabalpur (482001)</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-clock"></i>
+                <h3>Opening Hours</h3>
+                <p>11:00 am to <br>
+
+                    11:00 pm</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Address</h3>
+                <p>poojangoyani@gmail.com</p>
+                <p>pathakarpita867@gmail.com</p>
+            </div>
+
+        </div>
+
+        <div class="credit">
+            &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
+        </div>
+        </section>
+
+        <!-- footer section ends -->
+        <script src="js/main.js"></script>
 
 </body>
 

@@ -153,6 +153,10 @@ if (isset($_POST['order'])) {
 
 </head>
 
+
+
+
+
 <body>
 
     <?php
@@ -180,7 +184,7 @@ if (isset($_POST['order'])) {
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
                 <a href="menu.php" class="menu-link">Menu</a>
-                <a href="index.php #order">Order</a>
+               
                 <a href="index.php #faq">FAQs</a>
             </nav>
 
@@ -594,7 +598,48 @@ if (isset($_POST['order'])) {
             </div>
         </section>
     </section>
+<!-- footer section starts  -->
 
+<div class="footer">
+
+<div class="box-container">
+
+   <div class="box">
+      <i class="fas fa-phone"></i>
+      <h3>Phone Number</h3>
+      <p>+91 8849779702</p>
+      <p>+91 8962749659</p>
+   </div>
+
+   <div class="box">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>Our Address</h3>
+      <p>South Civil Lines, Jabalpur (482001)</p>
+   </div>
+
+   <div class="box">
+      <i class="fas fa-clock"></i>
+      <h3>Opening Hours</h3>
+      <p>11:00 am to <br>
+
+         11:00 pm</p>
+   </div>
+
+   <div class="box">
+      <i class="fas fa-envelope"></i>
+      <h3>Email Address</h3>
+      <p>poojangoyani@gmail.com</p>
+      <p>pathakarpita867@gmail.com</p>
+   </div>
+
+</div>
+
+<div class="credit">
+   &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
+</div>
+</section>
+
+<!-- footer section ends -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="js/main.js">
     </script>

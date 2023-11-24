@@ -219,42 +219,42 @@ if (isset($_POST['order'])) {
 
    <div class="my-orders">
 
-      <section>
+        <section>
 
-         <div id="close-orders"><span>close</span></div>
+            <div id="close-orders"><span>close</span></div>
 
-         <h3 class="title"> my orders </h3>
+            <h3 class="title"> my orders </h3>
 
-         <?php
-         $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
-         $select_orders->execute([$user_id]);
-         if ($select_orders->rowCount() > 0) {
-            while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
-         ?>
-               <div class="box">
-                  <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
-                  <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
-                  <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
-                  <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
-                  <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                  <p> total_orders : <span><?= $fetch_orders['total_products']; ?></span> </p>
-                  <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
-                  <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
-                                                               echo 'red';
-                                                            } else {
-                                                               echo 'green';
-                                                            }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
-               </div>
-         <?php
+            <?php
+            $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+            $select_orders->execute([$user_id]);
+            if ($select_orders->rowCount() > 0) {
+                while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                    <div class="box">
+                        <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
+                        <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
+                        <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
+                        <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
+                        <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
+                        <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                        <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
+                        <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
+                                                                    echo 'red';
+                                                                } else {
+                                                                    echo 'green';
+                                                                }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
+                    </div>
+            <?php
+                }
+            } else {
+                echo '<p class="empty">nothing ordered yet!</p>';
             }
-         } else {
-            echo '<p class="empty">nothing ordered yet!</p>';
-         }
-         ?>
+            ?>
 
-      </section>
+        </section>
 
-   </div>
+    </div>
    <!-- CART  -->
    <div class="shopping-cart">
 
@@ -275,27 +275,30 @@ if (isset($_POST['order'])) {
                   <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                   <div class="content">
                      <p> <?= $fetch_cart['name']; ?> </p>
-                     <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                     <?php
-                     if ($fetch_cart['toppings'] == 'f') {
-                        echo "<p> No extra toppings.</p>";
-                     } else {
-
-                        echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
-                        $item_total += 60;
-                     }
-                     ?>
-                     <p><?= $fetch_cart['crust']; ?>
+                     <?php if ($fetch_cart['category'] == 'Pizza') { ?><p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
                         <?php
-                        if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                           echo "<br><span>(+₹60)</span>";
+                        if ($fetch_cart['toppings'] == 'f') {
+                           echo "<p> No extra toppings.</p>";
+                        } else {
+
+                           echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
                            $item_total += 60;
                         }
-                        if ($fetch_cart['crust'] == 'Cheese Burst') {
-                           echo "<br><span>(+₹120)</span>";
-                           $item_total += 120;
-                        }
-                        ?></p>
+                        ?>
+                        <p><?= $fetch_cart['crust']; ?>
+                           <?php
+                           if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                              echo "<br><span>(+₹60)</span>";
+                              $item_total += 60;
+                           }
+                           if ($fetch_cart['crust'] == 'Cheese Burst') {
+                              echo "<br><span>(+₹120)</span>";
+                              $item_total += 120;
+                           }
+                           ?></p><?php } else {
+                                 ?>
+                        <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <?php } ?>
                      <h2>Item Total : <?= $item_total; ?></h2>
 
                      <form action="" method="post">
@@ -315,12 +318,13 @@ if (isset($_POST['order'])) {
 
          <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
 
-         <a href="#order" class="btn">order now</a>
+         <a href="cart.php" class="btn">Confirm Order</a>
 
       </section>
       <!-- CART  -->
 
    </div>
+
 
    <div class="home-bg">
 
@@ -369,56 +373,56 @@ if (isset($_POST['order'])) {
 
 
    <!-- image cards -->
- <h1 class="heading">Our Offered Products</h1>
+   <h1 class="heading">Our Offered Products</h1>
 
-<div class="card-section">
-   <div class="card-container">
-   <a href="menu.php#pizzas">
-      <div class="card">
-         <div class="card-details">
-            <img src="./images/pizza1.png">
-         </div>
+   <div class="card-section">
+      <div class="card-container">
+         <a href="menu.php#pizzas">
+            <div class="card">
+               <div class="card-details">
+                  <img src="./images/pizza1.png">
+               </div>
 
-        
+
+            </div>
+            <h1 class="subheads">Pizzas </h1>
       </div>
-      <h1 class="subheads">Pizzas </h1>
-   </div>
-   <div class="card-container">
-   <a href="menu.php#sides">
-      <div class="card">
-         <div class="card-details">
-            <img src="./images/sides1.png">
-         </div>
+      <div class="card-container">
+         <a href="menu.php#sides">
+            <div class="card">
+               <div class="card-details">
+                  <img src="./images/sides1.png">
+               </div>
 
-        
+
+            </div>
+            <h1 class="subheads">Sides</h1>
       </div>
-      <h1 class="subheads">Sides</h1>
-   </div>
-   <div class="card-container">
-   <a href="menu.php#beverages">
-      <div class="card">
-         <div class="card-details">
-            <img src="./images/beverages1.png">
-         </div>
+      <div class="card-container">
+         <a href="menu.php#beverages">
+            <div class="card">
+               <div class="card-details">
+                  <img src="./images/beverages1.png">
+               </div>
 
-       
+
+            </div>
+            <h1 class="subheads">Beverages</h1>
       </div>
-      <h1 class="subheads">Beverages</h1>
-   </div>
-   <div class="card-container">
-   <a href="menu.php#desserts">
-      <div class="card">
-         <div class="card-details">
-            <img src="./images/desserts1.png">
-         </div>
+      <div class="card-container">
+         <a href="menu.php#desserts">
+            <div class="card">
+               <div class="card-details">
+                  <img src="./images/desserts1.png">
+               </div>
 
-         
+
+            </div>
+            <h1 class="subheads">Desserts</h1>
       </div>
-      <h1 class="subheads">Desserts</h1>
    </div>
-</div>
 
-  
+
    <h1 class="heading">Latest Offers </h1>
 
    <div class="banner-container">
@@ -429,7 +433,7 @@ if (isset($_POST['order'])) {
       </div>
    </div>
 
- 
+
 
    <!-- testimonials -->
    <h1 class="heading">Reviews We Take Pride In</h1>
@@ -468,116 +472,46 @@ if (isset($_POST['order'])) {
    </div>
 
 
-    <!-- about section starts  -->
+   <!-- about section starts  -->
 
-    <section class="about" id="about">
-
-<h1 class="heading">about us</h1>
-
-<div class="box-container">
-
-   <div class="box">
-      <img src="images/about-1.svg" alt="">
-      <h3>Made with Love</h3>
-      <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
-
-   </div>
-
-   <div class="box">
-      <img src="images/about-2.svg" alt="">
-      <h3>30-Minute Delivery</h3>
-      <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
-   </div>
-
-   <div class="box">
-      <img src="images/about-3.svg" alt="">
-      <h3>Share with Friends</h3>
-      <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
-
-   </div>
-
-</div>
-
-</section>
-
-<!-- about section ends -->
+   <section class="about" id="about">
 
 
-  
-   <!-- order section starts  -->
-         <!--
-   <section class="order" id="order">
 
-      <h1 class="heading">order now</h1>
 
-      <form action="" method="post">
+      <h1 class="heading">about us</h1>
 
-         <div class="display-orders">
+      <div class="box-container">
 
-            <?php
-            $grand_total = 0;
-            $cart_item[] = '';
-            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            $select_cart->execute([$user_id]);
-            if ($select_cart->rowCount() > 0) {
-               while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                  $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
-                  $grand_total += $sub_total;
-                  $cart_item[] = $fetch_cart['name'] . ' ( ' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ' ) - ';
-                  $total_products = implode($cart_item);
-                  echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
-               }
-            } else {
-               echo '<p class="empty"><span>your cart is empty!</span></p>';
-            }
-            ?>
+         <div class="box">
+            <img src="images/about-1.svg" alt="">
+            <h3>Made with Love</h3>
+            <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
 
          </div>
 
-         <div class="grand-total"> grand total : <span>₹<?= $grand_total; ?>/-</span></div>
-
-         <input type="hidden" name="total_products" value="<?= $total_products; ?>">
-         <input type="hidden" name="total_price" value="<?= $grand_total; ?>">
-
-         <div class="flex">
-            <div class="inputBox">
-               <span>your name :</span>
-               <input type="text" name="name" class="box" required placeholder="enter your name" maxlength="20">
-            </div>
-            <div class="inputBox">
-               <span>your number :</span>
-               <input type="number" name="number" class="box" required placeholder="enter your number" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;">
-            </div>
-            <div class="inputBox">
-               <span>payment method</span>
-               <select name="method" class="box">
-                  <option value="cash on delivery">cash on delivery</option>
-                  <option value="credit card">credit card</option>
-                  <option value="paytm">paytm</option>
-                  <option value="paypal">paypal</option>
-               </select>
-            </div>
-            <div class="inputBox">
-               <span>address line 01 :</span>
-               <input type="text" name="flat" class="box" required placeholder="e.g. flat no." maxlength="50">
-            </div>
-            <div class="inputBox">
-               <span>address line 02 :</span>
-               <input type="text" name="street" class="box" required placeholder="e.g. street name." maxlength="50">
-            </div>
-            <div class="inputBox">
-               <span>pin code :</span>
-               <input type="number" name="pin_code" class="box" required placeholder="e.g. 123456" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;">
-            </div>
+         <div class="box">
+            <img src="images/about-2.svg" alt="">
+            <h3>30-Minute Delivery</h3>
+            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
          </div>
 
-         <input type="submit" value="order now" class="btn" name="order">
+         <div class="box">
+            <img src="images/about-3.svg" alt="">
+            <h3>Share with Friends</h3>
+            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
 
-      </form>
+         </div>
+
+      </div>
 
    </section>
-         -->
-   <!-- order section ends -->
+
+   <!-- about section ends -->
+
+
+
+
 
    <!-- faq section starts  -->
 
@@ -638,7 +572,7 @@ if (isset($_POST['order'])) {
 
    <!-- footer section starts  -->
 
-   <section class="footer">
+   <div class="footer">
 
       <div class="box-container">
 
@@ -672,14 +606,12 @@ if (isset($_POST['order'])) {
 
       </div>
 
+      <div class="credit">
+         &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
+      </div>
+      </section>
 
-   </section>
-
-   <!-- footer section ends -->
-
-
-
-
+      <!-- footer section ends -->
 
 
 
@@ -695,8 +627,12 @@ if (isset($_POST['order'])) {
 
 
 
-   <!-- custom js file link  -->
-   <script src="js/main.js"></script>
+
+
+
+
+      <!-- custom js file link  -->
+      <script src="js/main.js"></script>
 
 </body>
 

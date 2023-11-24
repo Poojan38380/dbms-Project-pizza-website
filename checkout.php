@@ -354,7 +354,7 @@ if (isset($_POST['order'])) {
 
                             <div class="single-order-container">
 
-                                <?php $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                                <?php $item_total = ($fetch_cart['price']);
                                 ?>
 
                                 <div class="content">
@@ -422,6 +422,7 @@ if (isset($_POST['order'])) {
                         } ?>
                     </div>
                     <div class="g-total-wo-discount">TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
+                   
                     <div class="g-total"> GRAND TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
             </div>
@@ -474,46 +475,46 @@ if (isset($_POST['order'])) {
         </form>
 
     </section>
-   <!-- footer section starts  -->
+    <!-- footer section starts  -->
 
-   <div class="footer">
+    <div class="footer">
 
-      <div class="box-container">
+        <div class="box-container">
 
-         <div class="box">
-            <i class="fas fa-phone"></i>
-            <h3>Phone Number</h3>
-            <p>+91 8849779702</p>
-            <p>+91 8962749659</p>
-         </div>
+            <div class="box">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Number</h3>
+                <p>+91 8849779702</p>
+                <p>+91 8962749659</p>
+            </div>
 
-         <div class="box">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>Our Address</h3>
-            <p>South Civil Lines, Jabalpur (482001)</p>
-         </div>
+            <div class="box">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Our Address</h3>
+                <p>South Civil Lines, Jabalpur (482001)</p>
+            </div>
 
-         <div class="box">
-            <i class="fas fa-clock"></i>
-            <h3>Opening Hours</h3>
-            <p>11:00 am to <br>
+            <div class="box">
+                <i class="fas fa-clock"></i>
+                <h3>Opening Hours</h3>
+                <p>11:00 am to <br>
 
-               11:00 pm</p>
-         </div>
+                    11:00 pm</p>
+            </div>
 
-         <div class="box">
-            <i class="fas fa-envelope"></i>
-            <h3>Email Address</h3>
-            <p>poojangoyani@gmail.com</p>
-            <p>pathakarpita867@gmail.com</p>
-         </div>
+            <div class="box">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Address</h3>
+                <p>poojangoyani@gmail.com</p>
+                <p>pathakarpita867@gmail.com</p>
+            </div>
 
-      </div>
+        </div>
 
 
-   </div>
+    </div>
 
-   <!-- footer section ends -->
+    <!-- footer section ends -->
     <script src="js/main.js"></script>
 
 </body>

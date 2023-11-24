@@ -486,7 +486,7 @@ if (isset($_POST['order'])) {
                                 <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
                                 <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
                                 <input type="hidden" name="crust">
-                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="toppings" value="f">
                                 <input type="hidden" name="size">
                                 <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                                 <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
@@ -523,7 +523,7 @@ if (isset($_POST['order'])) {
                     while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
                 ?>
                         <div class="box">
-                        <div class="price">Rs.<span><?= $fetch_products['regular_price'] ?></span>/-</div>
+                            <div class="price">Rs.<span><?= $fetch_products['regular_price'] ?></span>/-</div>
 
                             <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
                             <div class="name"><?= $fetch_products['name'] ?></div>
@@ -532,7 +532,7 @@ if (isset($_POST['order'])) {
                                 <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
                                 <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
                                 <input type="hidden" name="crust">
-                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="toppings" value="f">
                                 <input type="hidden" name="size">
                                 <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                                 <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">
@@ -569,7 +569,7 @@ if (isset($_POST['order'])) {
                     while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
                 ?>
                         <div class="box">
-                        <div class="price">Rs.<span><?= $fetch_products['regular_price'] ?></span>/-</div>
+                            <div class="price">Rs.<span><?= $fetch_products['regular_price'] ?></span>/-</div>
 
                             <img src="uploaded_img/<?= $fetch_products['image'] ?>" alt="">
                             <div class="name"><?= $fetch_products['name'] ?></div>
@@ -578,7 +578,7 @@ if (isset($_POST['order'])) {
                                 <input type="hidden" name="name" value="<?= $fetch_products['name'] ?>">
                                 <input type="hidden" name="category" value="<?= $fetch_products['category'] ?>">
                                 <input type="hidden" name="crust">
-                                <input type="hidden" name="toppings">
+                                <input type="hidden" name="toppings" value="f">
                                 <input type="hidden" name="size">
                                 <input type="hidden" name="price" value="<?= $fetch_products['regular_price'] ?>">
                                 <input type="hidden" name="image" value="<?= $fetch_products['image'] ?>">

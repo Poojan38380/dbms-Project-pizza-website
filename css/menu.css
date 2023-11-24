@@ -1,15 +1,13 @@
 .menu {
-    text-align: center;
-  }
-
-
+  text-align: center;
+}
 
 .headingmenu {
-  font-size: 3.5rem; 
+  font-size: 3.5rem;
 }
 
 .topnav {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   overflow: hidden;
   text-align: center;
 }
@@ -18,39 +16,40 @@
   display: inline-block;
   padding: 14px 16px;
   text-decoration: none;
-  color: #000000; 
-  font-size: 18px; 
-  transition: color 0.3s ease; 
+  color: #000000;
+  font-size: 18px;
+  transition: color 0.3s ease;
 }
 
 .topnav a:hover {
-  color: #e74c3c; 
+  color: #e74c3c;
+}
+.menu .head2 {
+  margin-top: 3rem;
+}
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-  
-  .box-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .box {
-    text-align: center;
-    margin: 15px;
-  }
-  
-  .box img {
-    max-width: 100%;
-    height: auto;
-  }
-  .head2 {
-    color: var(--black);
-    text-transform: uppercase;
-    font-size: 3rem;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .heading {
-    font-weight: bold;
-  }
+.box {
+  text-align: center;
+  margin: 15px;
+}
+
+.box img {
+  max-width: 100%;
+  height: auto;
+}
+.head2 {
+  color: var(--black);
+  text-transform: uppercase;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.heading {
+  font-weight: bold;
+}

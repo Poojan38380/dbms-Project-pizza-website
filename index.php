@@ -137,6 +137,7 @@ if (isset($_POST['order'])) {
             <a href="index.php ">Home</a>
             <a href="index.php #about">About</a>
             <a href="menu.php" class="menu-link">Menu</a>
+            <a href="index.php #order">Order</a>
             <a href="index.php #faq">FAQs</a>
          </nav>
 
@@ -149,7 +150,7 @@ if (isset($_POST['order'])) {
             $count_cart_items->execute([$user_id]);
             $total_cart_items = $count_cart_items->rowCount();
             ?>
-           <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>-->
+            <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>
          </div>
 
       </section>
@@ -220,11 +221,11 @@ if (isset($_POST['order'])) {
    <!-- order section starts -->
    <div class="my-orders">
 
-        <section>
+      <section>
 
-            <div id="close-orders"><span>close</span></div>
+         <div id="close-orders"><span>close</span></div>
 
-            <h3 class="title"> my orders </h3>
+         <h3 class="title"> my orders </h3>
 
          <?php
          $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
@@ -250,9 +251,12 @@ if (isset($_POST['order'])) {
                </div>
          <?php
             }
-            ?>
+         } else {
+            echo '<p class="empty">nothing ordered yet!</p>';
+         }
+         ?>
 
-        </section>
+      </section>
 
    </div>
    <!-- order section ends -->
@@ -371,58 +375,39 @@ if (isset($_POST['order'])) {
 
    </div>
 
+   <!-- about section starts  -->
 
-   <!-- image cards -->
-   <h1 class="heading">Our Offered Products</h1>
+   <section class="about" id="about">
 
-   <div class="card-section">
-      <div class="card-container">
-         <a href="menu.php#pizzas">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/pizza1.png">
-               </div>
+      <h1 class="heading">about us</h1>
 
+      <div class="box-container">
 
-            </div>
-            <h1 class="subheads">Pizzas </h1>
+         <div class="box">
+            <img src="images/about-1.svg" alt="">
+            <h3>Made with Love</h3>
+            <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
+
+         </div>
+
+         <div class="box">
+            <img src="images/about-2.svg" alt="">
+            <h3>30-Minute Delivery</h3>
+            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
+         </div>
+
+         <div class="box">
+            <img src="images/about-3.svg" alt="">
+            <h3>Share with Friends</h3>
+            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
+
+         </div>
+
       </div>
-      <div class="card-container">
-         <a href="menu.php#sides">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/sides1.png">
-               </div>
 
+   </section>
 
-            </div>
-            <h1 class="subheads">Sides</h1>
-      </div>
-      <div class="card-container">
-         <a href="menu.php#beverages">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/beverages1.png">
-               </div>
-
-
-            </div>
-            <h1 class="subheads">Beverages</h1>
-      </div>
-      <div class="card-container">
-         <a href="menu.php#desserts">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/desserts1.png">
-               </div>
-
-
-            </div>
-            <h1 class="subheads">Desserts</h1>
-      </div>
-   </div>
-
-
+   <!-- about section ends -->
    <h1 class="heading">Latest Offers </h1>
 
    <div class="banner-container">
@@ -432,9 +417,6 @@ if (isset($_POST['order'])) {
          <img src="images/banner1.png">
       </div>
    </div>
-
-
-
    <!-- testimonials -->
    <h1 class="heading">Reviews We Take Pride In</h1>
 
@@ -472,45 +454,51 @@ if (isset($_POST['order'])) {
    </div>
 
 
-   <!-- about section starts  -->
+   <!-- image cards -->
+   <h1 class="heading">Our Offered Products</h1>
 
-   <section class="about" id="about">
+   <div class="card-section">
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/pizza1.png">
+            </div>
 
-
-
-
-      <h1 class="heading">about us</h1>
-
-      <div class="box-container">
-
-         <div class="box">
-            <img src="images/about-1.svg" alt="">
-            <h3>Made with Love</h3>
-            <p>A symphony of premium ingredients, artisanal craftsmanship, and a dash of passion in every slice. Indulge in the warmth and flavor that sets our pizzas apart—a true labor of love from our kitchen to your table. </p>
 
          </div>
-
-         <div class="box">
-            <img src="images/about-2.svg" alt="">
-            <h3>30-Minute Delivery</h3>
-            <p> Because we believe in serving more than just pizza—prompt, piping hot perfection delivered straight to your door. Fast, fresh, and flavorful, our commitment to speedy service ensures your satisfaction with every bite. </p>
-         </div>
-
-         <div class="box">
-            <img src="images/about-3.svg" alt="">
-            <h3>Share with Friends</h3>
-            <p>Spread the joy, not just the cheese! Elevate your pizza experience by sharing the love with friends and family. Our tantalizing creations are made for communal indulgence, turning every meal into a celebration. </p>
-
-         </div>
-
+         <h1 class="subheads">Pizzas </h1>
       </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/sides1.png">
+            </div>
 
-   </section>
 
-   <!-- about section ends -->
+         </div>
+         <h1 class="subheads">Sides</h1>
+      </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/beverages1.png">
+            </div>
 
 
+         </div>
+         <h1 class="subheads">Beverages</h1>
+      </div>
+      <div class="card-container">
+         <div class="card">
+            <div class="card-details">
+               <img src="./images/desserts1.png">
+            </div>
 
+
+         </div>
+         <h1 class="subheads">Desserts</h1>
+      </div>
+   </div>
 
 
    <!-- faq section starts  -->
@@ -572,7 +560,7 @@ if (isset($_POST['order'])) {
 
    <!-- footer section starts  -->
 
-   <div class="footer">
+   <section class="footer">
 
       <div class="box-container">
 
@@ -606,12 +594,10 @@ if (isset($_POST['order'])) {
 
       </div>
 
-      <div class="credit">
-         &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
-      </div>
-      </section>
 
-      <!-- footer section ends -->
+   </section>
+
+   <!-- footer section ends -->
 
 
 
@@ -631,8 +617,8 @@ if (isset($_POST['order'])) {
 
 
 
-      <!-- custom js file link  -->
-      <script src="js/main.js"></script>
+   <!-- custom js file link  -->
+   <script src="js/main.js"></script>
 
 </body>
 

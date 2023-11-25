@@ -101,15 +101,16 @@ if (isset($_POST['order'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You!</title>
+    <title>Pizza Hot</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/thankyou.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-   
+
 
 </head>
 
@@ -139,133 +140,207 @@ if (isset($_POST['order'])) {
                 <a href="index.php ">Home</a>
                 <a href="index.php #about">About</a>
                 <a href="menu.php" class="menu-link">Menu</a>
-
+                <a href="index.php #order">Order</a>
                 <a href="index.php #faq">FAQs</a>
             </nav>
 
             <div class="icons">
-              <!--  <div id="menu-btn" class="fas fa-bars"></div>-->
+                <div id="menu-btn" class="fas fa-bars"></div>
                 <div id="user-btn" class="fas fa-user"></div>
-               <!-- <div id="order-btn" class="fas fa-box"></div>-->
+                <div id="order-btn" class="fas fa-box"></div>
                 <?php
                 $count_cart_items = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
                 $count_cart_items->execute([$user_id]);
                 $total_cart_items = $count_cart_items->rowCount();
                 ?>
-              <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>-->
+                <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div> -->
             </div>
 
         </section>
 
     </header>
 
-     <!-- header section ends -->
-    
-     <div class="user-account">
+    <!-- header section ends -->
 
-<section>
+    <div class="user-account">
 
-    <div id="close-account"><span>close</span></div>
+        <section>
 
-    <div class="user">
-        <?php
-        $select_user = $conn->prepare("SELECT * FROM `user` WHERE id = ?");
-        $select_user->execute([$user_id]);
-        if ($select_user->rowCount() > 0) {
-            while ($fetch_user = $select_user->fetch(PDO::FETCH_ASSOC)) {
-                echo '<p>welcome ! <span>' . $fetch_user['name'] . '</span></p>';
-                echo '<a href="index.php?logout" class="btn">logout</a>';
-            }
-        } else {
-            echo '<p><span>you are not logged in now!</span></p>';
-        }
-        ?>
-    </div>
+            <div id="close-account"><span>close</span></div>
 
-    <div class="display-orders">
-        <?php
-        $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-        $select_cart->execute([$user_id]);
-        if ($select_cart->rowCount() > 0) {
-            while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
-            }
-        } else {
-            echo '<p><span>your cart is empty!</span></p>';
-        }
-        ?>
-    </div>
-
-    <div class="flex">
-
-        <form action="user_login.php" method="post">
-            <h3>login now</h3>
-            <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
-            <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20">
-            <input type="submit" value="login now" name="login" class="btn">
-        </form>
-
-        <form action="" method="post">
-            <h3>register now</h3>
-            <input type="text" name="name" oninput="this.value = this.value.replace(/\s/g, '')" required class="box" placeholder="enter your username" maxlength="20">
-            <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
-            <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
-            <input type="password" name="cpass" required class="box" placeholder="confirm your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
-            <input type="submit" value="register now" name="register" class="btn">
-        </form>
-
-    </div>
-
-</section>
-
-</div>
-
-<div class="my-orders">
-
-<section>
-
-    <div id="close-orders"><span>close</span></div>
-
-    <h3 class="title"> my orders </h3>
-
-    <?php
-    $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
-    $select_orders->execute([$user_id]);
-    if ($select_orders->rowCount() > 0) {
-        while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
-    ?>
-            <div class="box">
-                <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
-                <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
-                <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
-                <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
-                <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
-                <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
-                <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
-                                                            echo 'red';
-                                                        } else {
-                                                            echo 'green';
-                                                        }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
+            <div class="user">
+                <?php
+                $select_user = $conn->prepare("SELECT * FROM `user` WHERE id = ?");
+                $select_user->execute([$user_id]);
+                if ($select_user->rowCount() > 0) {
+                    while ($fetch_user = $select_user->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<p>welcome ! <span>' . $fetch_user['name'] . '</span></p>';
+                        echo '<a href="index.php?logout" class="btn">logout</a>';
+                    }
+                } else {
+                    echo '<p><span>you are not logged in now!</span></p>';
+                }
+                ?>
             </div>
-    <?php
-        }
-    } else {
-        echo '<p class="empty">nothing ordered yet!</p>';
-    }
-    ?>
 
-</section>
+            <div class="display-orders">
+                <?php
+                $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+                $select_cart->execute([$user_id]);
+                if ($select_cart->rowCount() > 0) {
+                    while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<p>' . $fetch_cart['name'] . ' <span>(' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ')</span></p>';
+                    }
+                } else {
+                    echo '<p><span>your cart is empty!</span></p>';
+                }
+                ?>
+            </div>
 
-</div>
+            <div class="flex">
 
-<div class="thanks">
+                <form action="user_login.php" method="post">
+                    <h3>login now</h3>
+                    <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
+                    <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20">
+                    <input type="submit" value="login now" name="login" class="btn">
+                </form>
 
-<i class='bx bx-check-circle '  id="check"></i>
-<h1 class="headnew">Thank You for Your Order!</h1>
+                <form action="" method="post">
+                    <h3>register now</h3>
+                    <input type="text" name="name" oninput="this.value = this.value.replace(/\s/g, '')" required class="box" placeholder="enter your username" maxlength="20">
+                    <input type="email" name="email" required class="box" placeholder="enter your email" maxlength="50">
+                    <input type="password" name="pass" required class="box" placeholder="enter your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
+                    <input type="password" name="cpass" required class="box" placeholder="confirm your password" maxlength="20" oninput="this.value = this.value.replace(/\s/g, '')">
+                    <input type="submit" value="register now" name="register" class="btn">
+                </form>
+
+            </div>
+
+        </section>
+
+    </div>
+    <!-- order section starts -->
+    <div class="my-orders">
+
+        <section>
+
+            <div id="close-orders"><span>close</span></div>
+
+            <h3 class="title"> my orders </h3>
+
+            <?php
+            $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+            $select_orders->execute([$user_id]);
+            if ($select_orders->rowCount() > 0) {
+                while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                    <div class="box">
+                        <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
+                        <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
+                        <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
+                        <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
+                        <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
+                        <div class="details">
+                            <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                        </div>
+                        <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
+                        <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
+                                                                    echo 'red';
+                                                                } else {
+                                                                    echo 'green';
+                                                                }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
+                    </div>
+            <?php
+                }
+            } else {
+                echo '<p class="empty">nothing ordered yet!</p>';
+            }
+            ?>
+
+        </section>
+
+    </div>
+    <!-- order section ends -->
+
+    <!-- CART  -->
+    <div class="shopping-cart">
+
+        <section>
+
+            <div id="close-cart"><span>close</span></div>
+
+            <?php
+            $grand_total = 0;
+            $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+            $select_cart->execute([$user_id]);
+            if ($select_cart->rowCount() > 0) {
+                while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+                    $item_total = ($fetch_cart['price']);
+            ?>
+                    <div class="box">
+                        <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
+                        <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
+                        <div class="content">
+                            <p> <?= $fetch_cart['name']; ?> </p>
+                            <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                            <?php
+                            if ($fetch_cart['toppings'] == 'f') {
+                                echo "<p> No extra toppings.</p>";
+                            } else {
+
+                                echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                                $item_total += 60;
+                            }
+                            ?>
+                            <p><?= $fetch_cart['crust']; ?>
+                                <?php
+                                if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                                    echo "<br><span>(+₹60)</span>";
+                                    $item_total += 60;
+                                }
+                                if ($fetch_cart['crust'] == 'Cheese Burst') {
+                                    echo "<br><span>(+₹120)</span>";
+                                    $item_total += 120;
+                                }
+                                ?></p>
+                            <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
+
+                            <h2>Item Total : <?= $item_total; ?></h2>
+
+                            <form action="" method="post">
+                                <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
+                                <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" onkeypress="if(this.value.length == 2) return false;">
+                                <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                            </form>
+                        </div>
+                    </div>
+            <?php
+                    $grand_total += $item_total;
+                }
+            } else {
+                echo '<p class="empty"><span>your cart is empty!</span></p>';
+            }
+            ?>
+
+            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+
+            <a href="#order" class="btn">order now</a>
+
+        </section>
+
+    </div>
+    <!-- CART  -->
+
+    <div class="thanks">
+
+        <i class='bx bx-check-circle ' id="check"></i>
+        <h1 class="headnew">Thank You for Your Order!</h1>
         <p>We're on it! Your delicious pizza will be delivered within the next 30 minutes—nice and fresh.</p>
-      
 
+    </div>
+
+    <script src="js/main.js"></script>
 
 </body>
 

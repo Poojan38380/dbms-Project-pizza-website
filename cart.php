@@ -152,7 +152,7 @@ if (isset($_POST['order'])) {
                 $count_cart_items->execute([$user_id]);
                 $total_cart_items = $count_cart_items->rowCount();
                 ?>
-                <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>
+                <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div> -->
             </div>
 
         </section>
@@ -219,6 +219,7 @@ if (isset($_POST['order'])) {
 
     </div>
 
+    <!-- order section starts -->
     <div class="my-orders">
 
         <section>
@@ -239,7 +240,9 @@ if (isset($_POST['order'])) {
                         <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
                         <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
                         <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                        <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                        <div class="details">
+                            <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                        </div>
                         <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
                         <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
                                                                     echo 'red';
@@ -257,6 +260,7 @@ if (isset($_POST['order'])) {
         </section>
 
     </div>
+    <!-- order section ends -->
 
     <div class="shopping-cart">
 
@@ -270,7 +274,7 @@ if (isset($_POST['order'])) {
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
                 while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                    $item_total = $fetch_cart['price'];
             ?>
                     <div class="box">
                         <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
@@ -301,6 +305,8 @@ if (isset($_POST['order'])) {
                                             ?>
                                 <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
                             <?php } ?>
+                            <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
+
                             <h2>Item Total : <?= $item_total; ?></h2>
 
                             <form action="" method="post">
@@ -318,7 +324,7 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <div class="cart-total"> grand total : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
             <a href="#order" class="btn">order now</a>
 
@@ -335,7 +341,7 @@ if (isset($_POST['order'])) {
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
                 while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-                    $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+                    $item_total = $fetch_cart['price'];
             ?>
                     <div class="cart-box">
 
@@ -383,6 +389,7 @@ if (isset($_POST['order'])) {
                                 <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
                                 <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" onkeypress="if(this.value.length == 2) return false;">
                                 <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                                <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
 
                                 <h2 class="item-total">Item Total : <?= $item_total; ?></h2>
 
@@ -398,57 +405,56 @@ if (isset($_POST['order'])) {
             }
             ?>
 
-            <div class="cart-total"> GRAND TOTAL : <span>Rs. <?= $grand_total; ?>/-</span></div>
-
+            <div class="cart-total"> GRAND TOTAL : <span>Rs.<?= $grand_total; ?>/-</span></div>
+            
 
             <a href="checkout.php" class="btn">Place Order</a>
 
         </section>
     </div>
-<!-- footer section starts  -->
+    <!-- footer section starts  -->
 
-<div class="footer">
+    <div class="footer">
 
-<div class="box-container">
+        <div class="box-container">
 
-   <div class="box">
-      <i class="fas fa-phone"></i>
-      <h3>Phone Number</h3>
-      <p>+91 8849779702</p>
-      <p>+91 8962749659</p>
-   </div>
+            <div class="box">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Number</h3>
+                <p>+91 8849779702</p>
+                <p>+91 8962749659</p>
+            </div>
 
-   <div class="box">
-      <i class="fas fa-map-marker-alt"></i>
-      <h3>Our Address</h3>
-      <p>South Civil Lines, Jabalpur (482001)</p>
-   </div>
+            <div class="box">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Our Address</h3>
+                <p>South Civil Lines, Jabalpur (482001)</p>
+            </div>
 
-   <div class="box">
-      <i class="fas fa-clock"></i>
-      <h3>Opening Hours</h3>
-      <p>11:00 am to <br>
+            <div class="box">
+                <i class="fas fa-clock"></i>
+                <h3>Opening Hours</h3>
+                <p>11:00 am to <br>
 
-         11:00 pm</p>
-   </div>
+                    11:00 pm</p>
+            </div>
 
-   <div class="box">
-      <i class="fas fa-envelope"></i>
-      <h3>Email Address</h3>
-      <p>poojangoyani@gmail.com</p>
-      <p>pathakarpita867@gmail.com</p>
-   </div>
+            <div class="box">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Address</h3>
+                <p>poojangoyani@gmail.com</p>
+                <p>pathakarpita867@gmail.com</p>
+            </div>
 
-</div>
+        </div>
 
-<div class="credit">
-   &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
-</div>
-</section>
 
-<!-- footer section ends -->
+    </div>
+
+    <!-- footer section ends -->
     <script src="js/main.js">
     </script>
+    </div>
 </body>
 
 </html>

@@ -137,6 +137,7 @@ if (isset($_POST['order'])) {
             <a href="index.php ">Home</a>
             <a href="index.php #about">About</a>
             <a href="menu.php" class="menu-link">Menu</a>
+            <a href="index.php #order">Order</a>
             <a href="index.php #faq">FAQs</a>
          </nav>
 
@@ -149,7 +150,7 @@ if (isset($_POST['order'])) {
             $count_cart_items->execute([$user_id]);
             $total_cart_items = $count_cart_items->rowCount();
             ?>
-           <!-- <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>-->
+            <div id="cart-btn" class="fas fa-shopping-cart"><span>(<?= $total_cart_items; ?>)</span></div>
          </div>
 
       </section>
@@ -217,44 +218,48 @@ if (isset($_POST['order'])) {
 
    </div>
 
+   <!-- order section starts -->
    <div class="my-orders">
 
-        <section>
+      <section>
 
-            <div id="close-orders"><span>close</span></div>
+         <div id="close-orders"><span>close</span></div>
 
-            <h3 class="title"> my orders </h3>
+         <h3 class="title"> my orders </h3>
 
-            <?php
-            $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
-            $select_orders->execute([$user_id]);
-            if ($select_orders->rowCount() > 0) {
-                while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
-                        <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
-                        <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
-                        <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
-                        <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
-                        <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
-                        <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
-                        <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
-                                                                    echo 'red';
-                                                                } else {
-                                                                    echo 'green';
-                                                                }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
-                    </div>
-            <?php
-                }
-            } else {
-                echo '<p class="empty">nothing ordered yet!</p>';
+         <?php
+         $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+         $select_orders->execute([$user_id]);
+         if ($select_orders->rowCount() > 0) {
+            while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+         ?>
+               <div class="box">
+                  <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
+                  <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
+                  <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
+                  <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
+                  <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
+                  <div class="details">
+                     <p> Details : <span><?= $fetch_orders['items_list']; ?></span> </p>
+                  </div>
+                  <p> total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span> </p>
+                  <p> payment status : <span style="color:<?php if ($fetch_orders['payment_status'] == 'pending') {
+                                                               echo 'red';
+                                                            } else {
+                                                               echo 'green';
+                                                            }; ?>"><?= $fetch_orders['payment_status']; ?></span> </p>
+               </div>
+         <?php
             }
-            ?>
+         } else {
+            echo '<p class="empty">nothing ordered yet!</p>';
+         }
+         ?>
 
-        </section>
+      </section>
 
-    </div>
+   </div>
+   <!-- order section ends -->
    <!-- CART  -->
    <div class="shopping-cart">
 
@@ -268,37 +273,36 @@ if (isset($_POST['order'])) {
          $select_cart->execute([$user_id]);
          if ($select_cart->rowCount() > 0) {
             while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
-               $item_total = ($fetch_cart['price'] * $fetch_cart['quantity']);
+               $item_total = ($fetch_cart['price']);
          ?>
                <div class="box">
                   <a href="index.php?delete_cart_item=<?= $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this cart item?');"></a>
                   <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
                   <div class="content">
                      <p> <?= $fetch_cart['name']; ?> </p>
-                     <?php if ($fetch_cart['category'] == 'Pizza') { ?><p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                        <?php
-                        if ($fetch_cart['toppings'] == 'f') {
-                           echo "<p> No extra toppings.</p>";
-                        } else {
+                     <p> <?= $fetch_cart['size']; ?><br><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
+                     <?php
+                     if ($fetch_cart['toppings'] == 'f') {
+                        echo "<p> No extra toppings.</p>";
+                     } else {
 
-                           echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                        echo "<p> Extra " . $fetch_cart['toppings'] . "<br><span>(+₹60)</span></p>";
+                        $item_total += 60;
+                     }
+                     ?>
+                     <p><?= $fetch_cart['crust']; ?>
+                        <?php
+                        if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
+                           echo "<br><span>(+₹60)</span>";
                            $item_total += 60;
                         }
-                        ?>
-                        <p><?= $fetch_cart['crust']; ?>
-                           <?php
-                           if ($fetch_cart['crust'] == '100% Wheat Thin Crust') {
-                              echo "<br><span>(+₹60)</span>";
-                              $item_total += 60;
-                           }
-                           if ($fetch_cart['crust'] == 'Cheese Burst') {
-                              echo "<br><span>(+₹120)</span>";
-                              $item_total += 120;
-                           }
-                           ?></p><?php } else {
-                                 ?>
-                        <p><span>(<?= $fetch_cart['price']; ?> x <?= $fetch_cart['quantity']; ?>)</span></p>
-                     <?php } ?>
+                        if ($fetch_cart['crust'] == 'Cheese Burst') {
+                           echo "<br><span>(+₹120)</span>";
+                           $item_total += 120;
+                        }
+                        ?></p>
+                     <?php $item_total = $item_total * $fetch_cart['quantity']; ?>
+
                      <h2>Item Total : <?= $item_total; ?></h2>
 
                      <form action="" method="post">
@@ -316,14 +320,14 @@ if (isset($_POST['order'])) {
          }
          ?>
 
-         <div class="cart-total"> grand total : <span>$<?= $grand_total; ?>/-</span></div>
+         <div class="cart-total"> grand total : <span>Rs.<?= $grand_total; ?>/-</span></div>
 
-         <a href="cart.php" class="btn">Confirm Order</a>
+         <a href="cart.php" class="btn">order now</a>
 
       </section>
-      <!-- CART  -->
 
    </div>
+   <!-- CART  -->
 
 
    <div class="home-bg">
@@ -370,55 +374,49 @@ if (isset($_POST['order'])) {
       </section>
 
    </div>
-
-
    <!-- image cards -->
    <h1 class="heading">Our Offered Products</h1>
 
    <div class="card-section">
       <div class="card-container">
-         <a href="menu.php#pizzas">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/pizza1.png">
-               </div>
-
-
+         <div class="card">
+            <div class="card-details">
+               <a href="menu.php#pizzas"> <img src="./images/pizza1.png"> </a>
             </div>
-            <h1 class="subheads">Pizzas </h1>
+
+
+         </div>
+         <h1 class="subheads">Pizzas </h1>
       </div>
       <div class="card-container">
-         <a href="menu.php#sides">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/sides1.png">
-               </div>
-
-
+         <div class="card">
+            <div class="card-details">
+               <a href="menu.php#sides"> <img src="./images/sides1.png"> </a>
             </div>
-            <h1 class="subheads">Sides</h1>
+
+
+         </div>
+         <h1 class="subheads">Sides</h1>
       </div>
       <div class="card-container">
-         <a href="menu.php#beverages">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/beverages1.png">
-               </div>
-
-
+         <div class="card">
+            <div class="card-details">
+               <a href="menu.php#beverages"> <img src="./images/beverages1.png"> </a>
             </div>
-            <h1 class="subheads">Beverages</h1>
+
+
+         </div>
+         <h1 class="subheads">Beverages</h1>
       </div>
       <div class="card-container">
-         <a href="menu.php#desserts">
-            <div class="card">
-               <div class="card-details">
-                  <img src="./images/desserts1.png">
-               </div>
-
-
+         <div class="card">
+            <div class="card-details">
+               <a href="menu.php#desserts"> <img src="./images/desserts1.png"> </a>
             </div>
-            <h1 class="subheads">Desserts</h1>
+
+
+         </div>
+         <h1 class="subheads">Desserts</h1>
       </div>
    </div>
 
@@ -432,7 +430,6 @@ if (isset($_POST['order'])) {
          <img src="images/banner1.png">
       </div>
    </div>
-
 
 
    <!-- testimonials -->
@@ -471,13 +468,9 @@ if (isset($_POST['order'])) {
       </figure>
    </div>
 
-
    <!-- about section starts  -->
 
    <section class="about" id="about">
-
-
-
 
       <h1 class="heading">about us</h1>
 
@@ -508,9 +501,6 @@ if (isset($_POST['order'])) {
    </section>
 
    <!-- about section ends -->
-
-
-
 
 
    <!-- faq section starts  -->
@@ -606,12 +596,10 @@ if (isset($_POST['order'])) {
 
       </div>
 
-      <div class="credit">
-         &copy; copyright @ 2023 by <span>Pizza Hot</span> | all rights reserved!
-      </div>
-      </section>
 
-      <!-- footer section ends -->
+   </div>
+
+   <!-- footer section ends -->
 
 
 
@@ -631,8 +619,8 @@ if (isset($_POST['order'])) {
 
 
 
-      <!-- custom js file link  -->
-      <script src="js/main.js"></script>
+   <!-- custom js file link  -->
+   <script src="js/main.js"></script>
 
 </body>
 

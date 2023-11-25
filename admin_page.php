@@ -48,7 +48,7 @@ if(!isset($admin_id)){
                }
             }
          ?>
-         <h3>$<?= $total_pendings; ?>/-</h3>
+         <h3>Rs.<?= $total_pendings; ?>/-</h3>
          <p>total pendings</p>
          <a href="admin_orders.php" class="btn">see orders</a>
       </div>
@@ -64,7 +64,7 @@ if(!isset($admin_id)){
                }
             }
          ?>
-         <h3>$<?= $total_completes; ?>/-</h3>
+         <h3>Rs.<?= $total_completes; ?>/-</h3>
          <p>completed orders</p>
          <a href="admin_orders.php" class="btn">see orders</a>
       </div>
